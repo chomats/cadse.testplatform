@@ -12,7 +12,7 @@ public class IsAbstract extends CadseTest {
 		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
 		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
-		/* Test to be executed */
+		/* Bundle to be created */
 		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
 	}
 	
