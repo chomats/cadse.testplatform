@@ -3,7 +3,7 @@ package fr.imag.adele.cadse.testplatform.tests_basictests
 import fr.imag.adele.cadse.platform.*
 
 
-public class Root extends CadseTest {
+public class IsAbstract extends CadseTest {
 
 	public void addBundleToCompile() {
 		/* Libraries */
@@ -19,10 +19,18 @@ public class Root extends CadseTest {
 	public boolean runTest() {
 		String wsDir
 
-		/* CADSEg */
-		run.buildManager.deleteBundle("Model.Workspace.CADSE_interfaces")
-		if (run.runJavaTest(null, 'Interfaces_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.interfaces.CheckCadsegPages_ts') {
+		/* IsAbstract - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_IsAbstract")
+		if (run.runJavaTest(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg') {
 			wsDir = delegate.wsDir
+		})
+			return true;
+
+		/* IsAbstract - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_IsAbstract", "src-gen")
+		if (run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
+			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+			run.ant.mkdir(dir: delegate.wsDir)
 		})
 			return true;
 
@@ -30,6 +38,6 @@ public class Root extends CadseTest {
 	}
 
 	public static void main(String[] args) {
-		main(new Root())
+		main(new IsAbstract())
 	}
 }
