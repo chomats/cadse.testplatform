@@ -1,22 +1,21 @@
-package fr.imag.adele.cadse.platform.srciptTest
+package fr.imag.adele.cadse.testplatform.tests_tutos
 
 import fr.imag.adele.cadse.platform.*
 
-/**
- * @author chomats
- *
- */
+
 public class TutosRun extends CadseTest {
 
 	public void addBundleToCompile() {
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src")
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src")
+		/* Libraries */
+		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
+		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
 		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr","src")
+		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.tutos","src")
+		/* Test to be executed */
+		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.tutos", "src")
 	}
-
+	
 	public boolean runTest() {
 		String wsDir
 

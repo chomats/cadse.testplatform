@@ -1,17 +1,9 @@
-/**
- *
- */
-package fr.imag.adele.cadse.platform.srciptTest
+package fr.imag.adele.cadse.platform.tests_old
 
 import fr.imag.adele.cadse.platform.CadseTest
 import fr.imag.adele.cadse.platform.*
 
 
-
-/**
- * @author chomats
- *
- */
 public class SamCoreTestRun extends CadseTest {
 
 

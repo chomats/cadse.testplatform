@@ -1,14 +1,7 @@
-/**
- *
- */
- package fr.imag.adele.cadse.platform.srciptTest
+package fr.imag.adele.cadse.testplatform.tests_jacky
 
- import fr.imag.adele.cadse.platform.*
+import fr.imag.adele.cadse.platform.*
 
-/**
- * @author chomats
- *
- */
 public class OrderPagesRun extends CadseTest {
 
 

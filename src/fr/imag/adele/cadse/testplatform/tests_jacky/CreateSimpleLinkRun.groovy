@@ -1,18 +1,12 @@
-/**
- *
- */
- package fr.imag.adele.cadse.platform.srciptTest
+package fr.imag.adele.cadse.testplatform.tests_jacky
 
- import fr.imag.adele.cadse.platform.*
+import fr.imag.adele.cadse.platform.*
 
-/**
- * @author chomats
- *
- */
+
 public class CreateSimpleLinkRun extends CadseTest {
 
 	public void addBundleToCompile() {
-		 run.buildManager.createBundle(run.wsTest, "GraphicTests", "src")
+		 run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src")
 		 run.buildManager.createBundle(run.wsTest, "TEST.CU.Workspace.Workspace", "src")
 		 run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", , "src")
 	}

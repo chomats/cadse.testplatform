@@ -1,13 +1,8 @@
-/**
- *
- */
- package fr.imag.adele.cadse.platform.srciptTest
+package fr.imag.adele.cadse.testplatform.tests_jacky
 
- import fr.imag.adele.cadse.platform.*
-/**
- * @author chomats
- *
- */
+
+import fr.imag.adele.cadse.platform.*
+
 public class DeleteCadseRun extends CadseTest {
 
 	public void addBundleToCompile() {
