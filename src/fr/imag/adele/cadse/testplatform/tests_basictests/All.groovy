@@ -69,7 +69,26 @@ public class All extends CadseTest {
 			run.ant.mkdir(dir: delegate.wsDir)
 		})
 			return true;
+
 		
+		/* ========================== */
+		/* = HAS CONTENT / MAPPINGS =
+		/* ========================== */
+		
+		/* HasContent - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_HasContent")
+		if (run.runJavaTest(null, 'HasContent_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.hascontent.HasContent_ts_CADSEg') {
+			wsDir = delegate.wsDir
+		})
+			return true;
+
+		/* HasContent - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_HasContent", "src-gen")
+		if (run.runJavaTest(null, 'HasContent_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.hascontent.HasContent_ts_execution'){
+			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+			run.ant.mkdir(dir: delegate.wsDir)
+		})
+			return true;
 		
 		
 		return false;
