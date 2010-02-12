@@ -126,7 +126,7 @@ public class RunJavaTestClass{
 		
 		
 		// set default jvm to use for testing-->
-		jvm 			= getTestValue('jvm', testName, System.getProperty('java.home')+"/bin/java")
+		jvm 			= getTestValue('jvm', testName, System.getProperty('java.home').replace ('\\','/')+"/bin/java")
 
 		if (c != null) {
 			c.setDelegate(this);

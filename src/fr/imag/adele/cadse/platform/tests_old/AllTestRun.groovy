@@ -1,8 +1,6 @@
 package fr.imag.adele.cadse.platform.tests_old
 
 import fr.imag.adele.cadse.platform.*
-import fr.imag.adele.cadse.platform.tests_jacky.*;
-import fr.imag.adele.cadse.platform.tests_tutos.*;
 
 
 
