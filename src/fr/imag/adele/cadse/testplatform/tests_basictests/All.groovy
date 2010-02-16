@@ -20,7 +20,7 @@ public class All extends CadseTest {
 		String wsDir
 
 		/* =============== */
-		/* = CHECK PAGES =
+		/* = CHECK PAGES = */
 		/* =============== */
 		
 		/* CheckPages - CADSEg */
@@ -31,45 +31,25 @@ public class All extends CadseTest {
 			return true;
 
 		
-		/* =============== */
-		/* = IS ABSTRACT =
-		/* =============== */
+		/* ========================= */
+		/* = DEFAULT INSTANCE NAME = */
+		/* ========================= */
 		
-		/* IsAbstract - CADSEg */
-		run.buildManager.deleteBundle("Model.Workspace.CADSE_IsAbstract")
-		if (run.runJavaTest(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg') {
+		/* DefaultInstanceName - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_DefaultInstanceName")
+		if (run.runJavaTest(null, 'DefaultInstanceName_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.defaultinstancename.DefaultInstanceName_ts_CADSEg') {
 			wsDir = delegate.wsDir
 		})
 			return true;
 
-		/* IsAbstract - Execution */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_IsAbstract", "src-gen")
-		if (run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
+		/* DefaultInstanceName - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_DefaultInstanceName", "src-gen")
+		if (run.runJavaTest(null, 'DefaultInstanceName_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.defaultinstancename.DefaultInstanceName_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		})
 			return true;
-
-		
-		/* ======== */
-		/* = ROOT =
-		/* ======== */
-		
-		/* Root - CADSEg */
-		run.buildManager.deleteBundle("Model.Workspace.CADSE_Root")
-		if (run.runJavaTest(null, 'Root_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_CADSEg') {
-			wsDir = delegate.wsDir
-		})
-			return true;
-
-		/* Root - Execution */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_Root", "src-gen")
-		if (run.runJavaTest(null, 'Root_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_execution'){
-			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
-			run.ant.mkdir(dir: delegate.wsDir)
-		})
-			return true;
-
+	
 		
 		/* ========================== */
 		/* = HAS CONTENT / MAPPINGS =
@@ -91,6 +71,46 @@ public class All extends CadseTest {
 			return true;
 		
 		
+		/* =============== */
+		/* = IS ABSTRACT = */
+		/* =============== */
+		
+		/* IsAbstract - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_IsAbstract")
+		if (run.runJavaTest(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg') {
+			wsDir = delegate.wsDir
+		})
+			return true;
+
+		/* IsAbstract - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_IsAbstract", "src-gen")
+		if (run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
+			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+			run.ant.mkdir(dir: delegate.wsDir)
+		})
+			return true;
+
+		
+		/* ======== */
+		/* = ROOT = */
+		/* ======== */
+		
+		/* Root - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_Root")
+		if (run.runJavaTest(null, 'Root_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_CADSEg') {
+			wsDir = delegate.wsDir
+		})
+			return true;
+
+		/* Root - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_Root", "src-gen")
+		if (run.runJavaTest(null, 'Root_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_execution'){
+			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+			run.ant.mkdir(dir: delegate.wsDir)
+		})
+			return true;
+
+				
 		return false;
 	}
 
