@@ -24,32 +24,4 @@ public class CadseTestCollector {
 	public boolean failed() {
 		return pdeTestListener.failed();
 	}
-
-	public int count() {
-		return alltest.count();
-	}
-
-	public int getNumberOfTestsFailed() {
-		return alltest.getNumberOfTestsFailed();
-	}
-
-	public int getNumberOfTestsPassed() {
-		return alltest.getNumberOfTestsPassed();
-	}
-
-	public int getNumberOfTestsWithError() {
-		return alltest.getNumberOfTestsWithError();
-	}
-
-	public int getTestsRunCount() {
-		return alltest.getTestsRunCount();
-	}
-
-	public int getTotalNumberOfTests() {
-		return alltest.getTotalNumberOfTests();
-	}
-
-	public long getElapsedTime() {
-		return alltest.getElapsedTime();
-	}
 }

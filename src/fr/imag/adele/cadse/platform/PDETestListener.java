@@ -12,20 +12,62 @@ import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.eclipse.jdt.internal.junit.model.ITestRunListener2;
 
-public class PDETestListener implements ITestRunListener2 {
-	private int						totalNumberOfTests;
-	private int						testsRunCount;
-	private int						numberOfTestsPassed;
-	private int						numberOfTestsFailed;
-	private int						numberOfTestsWithError;
-	private boolean					testRunEnded	= false;
-	private XMLJUnitResultFormatter	xmlResultsFormatter;
-	private File					outputFile;
-	private String					suiteName;
-	private String					testName;
-	private JUnitTest				junitTestSuite;
-	private TestCase				currentTest;
 
+/**
+ * The listener interface for receiving PDETest events.
+ * The class that is interested in processing a PDETest
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addPDETestListener<code> method. When
+ * the PDETest event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see PDETestEvent
+ */
+public class PDETestListener implements ITestRunListener2 {
+	
+	/** The total number of tests. */
+	private int						totalNumberOfTests;
+	
+	/** The tests run count. */
+	private int						testsRunCount;
+	
+	/** The number of tests passed. */
+	private int						numberOfTestsPassed;
+	
+	/** The number of tests failed. */
+	private int						numberOfTestsFailed;
+	
+	/** The number of tests with error. */
+	private int						numberOfTestsWithError;
+	
+	/** The test run ended. */
+	private boolean					testRunEnded	= false;
+	
+	/** The xml results formatter. */
+	private XMLJUnitResultFormatter	xmlResultsFormatter;
+	
+	/** The output file. */
+	private File					outputFile;
+	
+	/** The suite name. */
+	private String					suiteName;
+	
+	/** The test name. */
+	private String					testName;
+	
+	/** The junit test suite. */
+	private JUnitTest				junitTestSuite;
+	
+	/** The current test. */
+	private TestCase				currentTest;
+	
+	/**
+	 * Instantiates a new pDE test listener.
+	 * 
+	 * @param suite the suite
+	 * @param testName the test name
+	 */
 	public PDETestListener(String suite, String testName) {
 		suiteName = suite;
 		junitTestSuite = new JUnitTest(suiteName);
@@ -33,10 +75,20 @@ public class PDETestListener implements ITestRunListener2 {
 		this.testName = testName;
 	}
 
+	/**
+	 * Sets the output file.
+	 * 
+	 * @param filename the new output file
+	 */
 	public void setOutputFile(String filename) {
 		outputFile = new File(filename);
 	}
 
+	/**
+	 * Gets the output file.
+	 * 
+	 * @return the output file
+	 */
 	public File getOutputFile() {
 		if (outputFile == null) {
 			setOutputFile("TEST-" + suiteName + ".xml");
@@ -44,14 +96,29 @@ public class PDETestListener implements ITestRunListener2 {
 		return outputFile;
 	}
 
+	/**
+	 * Failed.
+	 * 
+	 * @return true, if successful
+	 */
 	public boolean failed() {
 		return ((numberOfTestsFailed + numberOfTestsWithError) > 0) || (testRunEnded && (testsRunCount == 0));
 	}
 
+	/**
+	 * Count.
+	 * 
+	 * @return the int
+	 */
 	public int count() {
 		return testsRunCount;
 	}
 
+	/**
+	 * Gets the xMLJ unit result formatter.
+	 * 
+	 * @return the xMLJ unit result formatter
+	 */
 	private XMLJUnitResultFormatter getXMLJUnitResultFormatter() {
 		if (xmlResultsFormatter == null) {
 			xmlResultsFormatter = new XMLJUnitResultFormatter();
@@ -64,6 +131,9 @@ public class PDETestListener implements ITestRunListener2 {
 		return xmlResultsFormatter;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testRunStarted(int)
+	 */
 	public synchronized void testRunStarted(int testCount) {
 		totalNumberOfTests = testCount;
 		testsRunCount = 0;
@@ -72,42 +142,59 @@ public class PDETestListener implements ITestRunListener2 {
 		numberOfTestsWithError = 0;
 		testRunEnded = false;
 		getXMLJUnitResultFormatter().startTestSuite(junitTestSuite);
-		System.out.println("Test Run Started - " + testName + " running " + totalNumberOfTests + " tests ...");
+		printMessage("Starting test suite : " + testName + " (" + totalNumberOfTests + " tests)");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testRunEnded(long)
+	 */
 	public synchronized void testRunEnded(long elapsedTime) {
 		testRunEnded = true;
 		junitTestSuite.setCounts(testsRunCount, numberOfTestsFailed, numberOfTestsWithError);
 		junitTestSuite.setRunTime(elapsedTime);
 		getXMLJUnitResultFormatter().endTestSuite(junitTestSuite);
-		System.out.println("Test Run Ended   - " + (failed() ? "FAILED" : "PASSED") + " - Total: " + totalNumberOfTests
+		String flag = (failed() ? "[ ERROR ]" : "[SUCCESS]");
+		printMessage(flag + " Test suite ended " + " - Total: " + totalNumberOfTests
 				+ " (Errors: " + numberOfTestsWithError + ", Failed: " + numberOfTestsFailed + ", Passed: "
-				+ numberOfTestsPassed + "), duration " + elapsedTime + "ms.");
+				+ numberOfTestsPassed + "), duration " + elapsedTime/1000 + "s.");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testRunStopped(long)
+	 */
 	public synchronized void testRunStopped(long elapsedTime) {
-		System.out.println("Test Run Stopped");
 		testRunEnded(elapsedTime);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testRunTerminated()
+	 */
 	public synchronized void testRunTerminated() {
-		System.out.println("Test Run Terminated");
 		testRunEnded(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testStarted(java.lang.String, java.lang.String)
+	 */
 	public synchronized void testStarted(String testId, String testName) {
 		testsRunCount++;
 		currentTest = new WrapperTestCase(testName);
 		getXMLJUnitResultFormatter().startTest(currentTest);
-		System.out.println("  Test Started - " + count() + " - " + testName);
+		printMessage("Test n°" + count() + " started : " + testName);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testEnded(java.lang.String, java.lang.String)
+	 */
 	public synchronized void testEnded(String testId, String testName) {
 		numberOfTestsPassed = count() - (numberOfTestsFailed + numberOfTestsWithError);
 		getXMLJUnitResultFormatter().endTest(currentTest);
-		System.out.println("  Test Ended   - " + count() + " - " + testName);
+		printMessage("[SUCCESS] Test n°" + count() + " ended : " + testName);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testFailed(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	public synchronized void testFailed(int status, String testId, String testName, String trace, String expected,
 			String actual) {
 		String statusMessage = String.valueOf(status);
@@ -123,10 +210,12 @@ public class PDETestListener implements ITestRunListener2 {
 			statusMessage = "ERROR";
 			getXMLJUnitResultFormatter().addError(currentTest, new Exception(trace));
 		}
-		System.out.println("  Test Failed  - " + count() + " - " + testName + " - status: " + statusMessage
-				+ ", trace: " + trace + ", expected: " + expected + ", actual: " + actual);
+		printMessage("[ ERROR ] Test n°" + count() + " ended : " + testName + " - status: " + statusMessage	+ ", expected: " + expected + ", actual: " + actual, trace);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testReran(java.lang.String, java.lang.String, java.lang.String, int, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	public synchronized void testReran(String testId, String testClass, String testName, int status, String trace,
 			String expected, String actual) {
 		String statusMessage = String.valueOf(status);
@@ -138,25 +227,56 @@ public class PDETestListener implements ITestRunListener2 {
 			statusMessage = "ERROR";
 		}
 
-		System.out.println("  Test ReRan   - " + testName + " - test class: " + testClass + ", status: "
+		printMessage("[ INFO ] Test ReRan   - " + testName + " - test class: " + testClass + ", status: "
 				+ statusMessage + ", trace: " + trace + ", expected: " + expected + ", actual: " + actual);
 	}
 
+	private synchronized void printMessage(String message) {
+		printMessage(message, null);
+	}
+	
+	private synchronized void printMessage(String message, String trace) {
+		System.out.println("");
+		System.out.println("********************************************************");
+		System.out.println("* " + message);
+		System.out.println("********************************************************");
+		if (trace != null)
+			System.out.println(trace);
+		System.out.println("");
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testTreeEntry(java.lang.String)
+	 */
 	public synchronized void testTreeEntry(String description) {
 		System.out.println("Test Tree Entry - Description: " + description);
 	}
 
+	/**
+	 * The Class WrapperTestCase.
+	 */
 	class WrapperTestCase extends TestCase {
 
+		/**
+		 * Instantiates a new wrapper test case.
+		 * 
+		 * @param name the name
+		 */
 		public WrapperTestCase(String name) {
 			super(name);
 		}
 
+		/* (non-Javadoc)
+		 * @see junit.framework.TestCase#countTestCases()
+		 */
 		@Override
 		public int countTestCases() {
 			return 1;
 		}
 
+		/* (non-Javadoc)
+		 * @see junit.framework.TestCase#run(junit.framework.TestResult)
+		 */
 		@Override
 		public void run(TestResult result) {
 		}

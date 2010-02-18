@@ -37,10 +37,7 @@ import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.jdt.internal.junit.runner.MessageIds;
 import org.eclipse.jdt.internal.junit.ui.JUnitPlugin;
 
-/**
- * @author chomats
- *
- */
+
 public class RunJavaTestClass{
 	String testPlatformPath;
 	String wsTest ;

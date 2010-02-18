@@ -1,8 +1,4 @@
-/**
- *
- */
 package fr.imag.adele.cadse.platform
-
 
 
 public abstract class CadseTest {

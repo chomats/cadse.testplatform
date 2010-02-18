@@ -1,14 +1,8 @@
-/**
- *
- */
 package fr.imag.adele.cadse.platform
 
 import java.text.SimpleDateFormatimport java.util.jar.Manifestimport org.osgi.framework.Version
 import java.lang.Throwable
-/**
- * @author chomats
- *
- */
+
 public class BuildManager{
 
 	String testPlatformPath
@@ -209,6 +203,4 @@ public class BuildManager{
 			return true;
 		}
 	}
-
-
 }
