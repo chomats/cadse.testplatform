@@ -21,18 +21,16 @@ public class Root extends CadseTest {
 
 		/* Root - CADSEg */
 		run.buildManager.deleteBundle("Model.Workspace.CADSE_Root")
-		if (run.runJavaTest(null, 'Root_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_CADSEg') {
+		run.runJavaTest(null, 'Root_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_CADSEg') {
 			wsDir = delegate.wsDir
-		})
-			return true;
+		}
 
 		/* Root - Execution */
 		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_Root", "src-gen")
-		if (run.runJavaTest(null, 'Root_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_execution'){
+		run.runJavaTest(null, 'Root_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.root.Root_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
-		})
-			return true;
+		}
 
 		return false;
 	}

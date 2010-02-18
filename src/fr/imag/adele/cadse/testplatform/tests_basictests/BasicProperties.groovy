@@ -21,18 +21,16 @@ public class BasicProperties extends CadseTest {
 
 		/* BasicProperties - CADSEg */
 		run.buildManager.deleteBundle("Model.Workspace.CADSE_BasicProperties")
-		if (run.runJavaTest(null, 'BasicProperties_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_ts_CADSEg') {
+		run.runJavaTest(null, 'BasicProperties_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_ts_CADSEg') {
 			wsDir = delegate.wsDir
-		})
-			return true;
-
+		}
+		
 		/* BasicProperties - Execution */
 		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_BasicProperties", "src-gen")
-		if (run.runJavaTest(null, 'BasicProperties_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_ts_execution') {
+		run.runJavaTest(null, 'BasicProperties_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_ts_execution') {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
-		})
-			return true;
+		}
 
 		return false;
 	}

@@ -21,18 +21,16 @@ public class DefaultInstanceName extends CadseTest {
 
 		/* DefaultInstanceName - CADSEg */
 		run.buildManager.deleteBundle("Model.Workspace.CADSE_DefaultInstanceName")
-		if (run.runJavaTest(null, 'DefaultInstanceName_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.defaultinstancename.DefaultInstanceName_ts_CADSEg') {
+		run.runJavaTest(null, 'DefaultInstanceName_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.defaultinstancename.DefaultInstanceName_ts_CADSEg') {
 			wsDir = delegate.wsDir
-		})
-			return true;
+		}
 
 		/* DefaultInstanceName - Execution */
 		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_DefaultInstanceName", "src-gen")
-		if (run.runJavaTest(null, 'DefaultInstanceName_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.defaultinstancename.DefaultInstanceName_ts_execution'){
+		run.runJavaTest(null, 'DefaultInstanceName_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.defaultinstancename.DefaultInstanceName_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
-		})
-			return true;
+		}
 
 		return false;
 	}

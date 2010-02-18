@@ -21,18 +21,17 @@ public class IsAbstract extends CadseTest {
 
 		/* IsAbstract - CADSEg */
 		run.buildManager.deleteBundle("Model.Workspace.CADSE_IsAbstract")
-		if (run.runJavaTest(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg') {
+		run.runJavaTest(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg') {
 			wsDir = delegate.wsDir
-		})
-			return true;
+		}
 
 		/* IsAbstract - Execution */
+		startTime = System.currentTimeMillis()
 		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_IsAbstract", "src-gen")
-		if (run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
+		run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
-		})
-			return true;
+		}
 
 		return false;
 	}
