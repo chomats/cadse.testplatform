@@ -40,7 +40,25 @@ public class All extends CadseTest {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
+		
+		
+		/* ======================= */
+		/* = CANNOT BE UNDEFINED = */
+		/* ======================= */
 				
+		/* CannotBeUndefined - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_CannotBeUndefined")
+		run.runJavaTest(null, 'CannotBeUndefined_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.cannotbeundefined.CannotBeUndefined_ts_CADSEg') {
+			wsDir = delegate.wsDir
+		}
+		
+		/* CannotBeUndefined - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_CannotBeUndefined", "src-gen")
+		run.runJavaTest(null, 'CannotBeUndefined_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.cannotbeundefined.CannotBeUndefined_ts_execution') {
+			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+			run.ant.mkdir(dir: delegate.wsDir)
+		}
+
 		
 		/* =============== */
 		/* = CHECK PAGES = */
