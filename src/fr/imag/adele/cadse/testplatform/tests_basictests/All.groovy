@@ -127,6 +127,24 @@ public class All extends CadseTest {
 
 		
 		/* ======== */
+		/* = LINK = */
+		/* ======== */
+		
+		/* Link - CADSEg */
+		run.buildManager.deleteBundle("Model.Workspace.CADSE_Link")
+		run.runJavaTest(null, 'Link_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.link.Link_ts_CADSEg') {
+			wsDir = delegate.wsDir
+		}
+
+		/* Link - Execution */
+		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_Link", "src-gen")
+		run.runJavaTest(null, 'Link_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.link.Link_ts_execution'){
+			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+			run.ant.mkdir(dir: delegate.wsDir)
+		}
+		
+		
+		/* ======== */
 		/* = ROOT = */
 		/* ======== */
 		
