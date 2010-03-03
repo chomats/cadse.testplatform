@@ -55,8 +55,8 @@ public class BuildManager{
 		mf.write(new FileOutputStream(manifestoutfile));
 	}
 
-	public void createBundle(String pathWs, String name, String srcFolder) {
-		createBundle(pathWs, name, srcFolder, true)
+	public boolean createBundle(String pathWs, String name, String srcFolder) {
+		return createBundle(pathWs, name, srcFolder, true)
 	}
 
 	String getVersion(String manifestfile) {
@@ -101,6 +101,7 @@ public class BuildManager{
 		try {
 			String srcFolder = fbm.getDefaultSourceFolder();
 
+			
 			ant.echo(message:"Compile and create bundle $name")
 			String classesDir = "$testPlatformPath/target/$name/classes"
 	        ant.mkdir(dir : classesDir)
@@ -112,7 +113,12 @@ public class BuildManager{
 			}
 			// compile source folder
 			String[] srcFolders = fbm.getTokensEntry('source..')
-			ant.javac(destdir:classesDir, debug:debugFlag, debuglevel:'lines,vars,source', classpathref:'build.class.path', includeantruntime:false) {
+			ant.property(name:'build.compiler', value:'org.eclipse.jdt.core.JDTCompilerAdapter');
+
+			ant.javac(destdir:classesDir, debug:debugFlag, debuglevel:'lines,vars,source', classpathref:'build.class.path', 
+					source:'1.5',
+					target:'1.5',
+					includeantruntime:false) {
 				for(s in srcFolders) {
 					src(path:"$pathWs/$name/$s")
 				}
@@ -184,6 +190,7 @@ public class BuildManager{
 	        ant.copy(todir:"${testEclipsePath}/${plugins}", file:bundle_file_jar, overwrite:true)
 	        return false;
 		} catch (Throwable e) {
+			println 'Error : ';
 			e.printStackTrace();
 			return true;
 		}
