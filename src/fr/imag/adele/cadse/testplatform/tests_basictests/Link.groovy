@@ -5,7 +5,7 @@ import fr.imag.adele.cadse.platform.*
 
 public class Link extends CadseTest {
 
-	public void addBundleToCompile() {
+	public void init() {
 		/* Libraries */
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
@@ -14,25 +14,19 @@ public class Link extends CadseTest {
 		
 		/* Bundle to be created */
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
-	}
 	
-	public boolean runTest() {
-		String wsDir
-
 		/* Link - CADSEg */
-		run.buildManager.deleteBundle("Model.Workspace.CADSE_Link")
-		run.runJavaTest(null, 'Link_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.link.Link_ts_CADSEg') {
-			wsDir = delegate.wsDir
-		}
+		CadseTestPart tp;
+		tp = addTestPart(null, 'Link_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.link.Link_ts_CADSEg') 
+		tp.deleteBundle("Model.Workspace.CADSE_Link")
+
 
 		/* Link - Execution */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_Link", "src-gen")
-		run.runJavaTest(null, 'Link_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.link.Link_ts_execution'){
+		tp = addTestPart(null, 'Link_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.link.Link_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-
-		return false;
+		tp.addBundle(null, "Model.Workspace.CADSE_Link", "src-gen")
 	}
 
 	public static void main(String[] args) {

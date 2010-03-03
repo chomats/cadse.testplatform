@@ -5,15 +5,15 @@ import fr.imag.adele.cadse.platform.*
 
 public class TeamWorkRun extends CadseTest {
 
-	public void addBundleToCompile() {
+	public void init() {
 		/* Libraries */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
 		/* Test to be executed */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.tutos", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.tutos", "src")
 	}
 	
 	public boolean runTest() {

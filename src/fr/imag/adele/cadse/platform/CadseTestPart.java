@@ -40,6 +40,9 @@ public class CadseTestPart {
 	}
 
 	public void addBundle(String path, String name, String defaultSource) {
+		if (path == null)
+			path = "${run.testPlatformPath}/test-ws";
+		
 		addBundle(new BundleBuildDescription(path, name, defaultSource));
 	}
 	

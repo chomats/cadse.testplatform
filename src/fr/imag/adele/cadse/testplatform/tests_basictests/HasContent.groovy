@@ -5,7 +5,7 @@ import fr.imag.adele.cadse.platform.*
 
 public class HasContent extends CadseTest {
 
-	public void addBundleToCompile() {
+	public void init() {
 		/* Libraries */
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
@@ -14,25 +14,18 @@ public class HasContent extends CadseTest {
 		
 		/* Bundle to be created */
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
-	}
 	
-	public boolean runTest() {
-		String wsDir
-
 		/* HasContent - CADSEg */
-		run.buildManager.deleteBundle("Model.Workspace.CADSE_HasContent")
-		run.runJavaTest(null, 'HasContent_CADSEg', 'fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.hascontent.HasContent_ts_CADSEg') {
-			wsDir = delegate.wsDir
-		}
+		CadseTestPart tp;
+		tp = addTestPart(null, 'HasContent_CADSEg', 'fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.hascontent.HasContent_ts_CADSEg');
+		tp.deleteBundle 'Model.Workspace.CADSE_HasContent'
 		
 		/* HasContent - Execution */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_HasContent", "src-gen")
-		run.runJavaTest(null, 'HasContent_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.hascontent.HasContent_ts_execution'){
+		tp = addTestPart(null, 'HasContent_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.hascontent.HasContent_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-
-		return false;
+		tp.addBundle(null, "Model.Workspace.CADSE_HasContent", "src-gen")
 	}
 
 	public static void main(String[] args) {

@@ -5,7 +5,7 @@ import fr.imag.adele.cadse.platform.*
 
 public class IsAbstract extends CadseTest {
 
-	public void addBundleToCompile() {
+	public void init() {
 		/* Libraries */
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
@@ -14,25 +14,18 @@ public class IsAbstract extends CadseTest {
 		
 		/* Bundle to be created */
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
-	}
 	
-	public boolean runTest() {
-		String wsDir
-
 		/* IsAbstract - CADSEg */
-		run.buildManager.deleteBundle("Model.Workspace.CADSE_IsAbstract")
-		run.runJavaTest(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg') {
-			wsDir = delegate.wsDir
-		}
-
+		CadseTestPart tp;
+		tp = addTestPart(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg')
+		tp.deleteBundle 'Model.Workspace.CADSE_IsAbstract'
+		
 		/* IsAbstract - Execution */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_IsAbstract", "src-gen")
-		run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
+		tp = addTestPart(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-
-		return false;
+		tp.addBundle(null, "Model.Workspace.CADSE_IsAbstract", "src-gen")
 	}
 
 	public static void main(String[] args) {

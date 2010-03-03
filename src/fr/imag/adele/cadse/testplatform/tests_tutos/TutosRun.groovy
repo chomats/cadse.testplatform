@@ -5,98 +5,85 @@ import fr.imag.adele.cadse.platform.*
 
 public class TutosRun extends CadseTest {
 
-	public void addBundleToCompile() {
+	public void init() {
 		/* Libraries */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
 		/* Test to be executed */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.tutos", "src")
-	}
-	
-	public boolean runTest() {
-		String wsDir
+		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.tutos", "src")
+
+		CadseTestPart tp;
 
 		/* ============ */
 		/*    TUTO 1    */
 		/* ============ */
 		
 		/* CADSEg : from the beginning up to part 5.5 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto1_Part1_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part1_ts_CADSEg') {
-			wsDir = delegate.wsDir
-		})
-			return true;
-
+		tp = addTestPart(null, 'Tuto1_Part1_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part1_ts_CADSEg')
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
+		
 		/* Execution : part 5.6 */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto1_Part1_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part1_ts_execution'){
+		tp = addTestPart(null, 'Tuto1_Part1_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part1_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
-		})
-			return true;
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
 
 		/* CADSEg : from part 6 to part 6.3 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto1_Part2_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part2_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto1_Part2_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part2_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
 		
 		/* Execution : end of part 6.3 */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto1_Part2_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part2_ts_execution'){
+		tp = addTestPart(null, 'Tuto1_Part2_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part2_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
 	
 		/* CADSEg : part 6.4 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto1_Part3_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part3_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto1_Part3_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part3_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
 		
 		/* Execution : end of part 6.4 */ 
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto1_Part3_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part3_ts_execution'){
+		tp = addTestPart(null, 'Tuto1_Part3_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part3_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
 	
 		/* CADSEg : part 6.5 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto1_Part4_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part4_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto1_Part4_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part4_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
+		
 	
 		/* Execution : end of part 6.5 */ 
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto1_Part4_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part4_ts_execution'){
+		tp = addTestPart(null, 'Tuto1_Part4_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part4_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;
-	
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
+		
 		/* CADSEg : part 6.6 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto1_Part5_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part5_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto1_Part5_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part5_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
-	
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
+		
 		/* Execution : end of part 6.6 */ 
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto1_Part5_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part5_ts_execution'){
+		tp = addTestPart(null, 'Tuto1_Part5_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto1.Tuto1Part5_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
 	
 	
 		/* ============ */
@@ -104,66 +91,57 @@ public class TutosRun extends CadseTest {
 		/* ============ */
 		
 		/* CADSEg : part 3.1 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto2_Part1_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part1_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto2_Part1_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part1_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
 			
 		/* Execution : part 3.1 */
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto2_Part1_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part1_ts_execution'){
+		tp = addTestPart(null, 'Tuto2_Part1_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part1_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = true;
-		})
-			return true;
-			
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
+		
 		/* CADSEg : part 3.2 */
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto2_Part2_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part2_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto2_Part2_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part2_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
-	
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
+		
 		/* Execution : end of part 3.2 */ 
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto2_Part2_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part2_ts_execution'){
+		tp = addTestPart(null, 'Tuto2_Part2_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part2_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
 		
 		/* CADSEg : part 3.3 */ 
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto2_Part3_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto2_Part3_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true; 		
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
 		
 		/* Execution : end of part 3.3 */ 
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto2_Part3_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_execution'){
+		tp = addTestPart(null, 'Tuto2_Part3_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;
-			
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
+		
 		/* CADSEg : part 3.4*/ 
-		run.buildManager.deleteBundle("Model.Workspace.WebAppModel")
-		if (run.runJavaTest(null, 'Tuto2_Part4_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part4_ts_CADSEg') {
+		tp = addTestPart(null, 'Tuto2_Part4_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part4_ts_CADSEg') {
 			delegate.deleteWsDir = false;
-		})
-			return true;
+		}
+		tp.deleteBundle 'Model.Workspace.WebAppModel';
+		
 		
 		/* Execution : end of part 3.4 */ 
-		run.buildManager.createBundle(wsDir, "Model.Workspace.WebAppModel", "src-gen")
-		if (run.runJavaTest(null, 'Tuto2_Part4_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part4_ts_execution'){
+		tp = addTestPart(null, 'Tuto2_Part4_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part4_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			delegate.deleteWsDir = false;
-		})
-			return true;			
-
-		return false;
+		}
+		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
 	}
 
 	public static void main(String[] args) {

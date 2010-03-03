@@ -51,6 +51,6 @@ public abstract class CadseTest {
 	}
 	
 	public String getName() {
-		return getClass().getName();
+		return getClass().getSimpleName();
 	}
 }
