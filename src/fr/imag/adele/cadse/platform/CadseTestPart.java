@@ -61,5 +61,13 @@ public class CadseTestPart {
 	public String getName() {
 		return testName;
 	}
+
+	public CadseTestMethod findTestResult(String testName2) {
+		for (CadseTestMethod ctm : tests) {
+			if (ctm.name.equals(testName2))
+				return ctm;
+		}
+		return null;
+	}
 	
 }

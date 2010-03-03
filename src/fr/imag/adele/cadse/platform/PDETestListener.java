@@ -63,6 +63,8 @@ public class PDETestListener implements ITestRunListener2 {
 	private TestCase				currentTest;
 	
 	public CadseTestPart			currentCadseTest;
+
+	private boolean _failed = false;
 	
 	/**
 	 * Instantiates a new pDE test listener.
@@ -105,7 +107,7 @@ public class PDETestListener implements ITestRunListener2 {
 	 * @return true, if successful
 	 */
 	public boolean failed() {
-		return ((numberOfTestsFailed + numberOfTestsWithError) > 0) || (testRunEnded && (testsRunCount == 0));
+		return _failed ;
 	}
 
 	/**
@@ -190,10 +192,14 @@ public class PDETestListener implements ITestRunListener2 {
 	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testEnded(java.lang.String, java.lang.String)
 	 */
 	public synchronized void testEnded(String testId, String testName) {
-		numberOfTestsPassed = count() - (numberOfTestsFailed + numberOfTestsWithError);
 		getXMLJUnitResultFormatter().endTest(currentTest);
-		printMessage("[SUCCESS] Test n°" + count() + " ended : " + testName);
-		currentCadseTest.addTestResult(testName, 0, true);
+		CadseTestMethod test = currentCadseTest.findTestResult(testName);
+		if (test == null) {
+			numberOfTestsPassed = count() - (numberOfTestsFailed + numberOfTestsWithError);
+			printMessage("[SUCCESS] Test n°" + count() + " ended : " + testName);
+			currentCadseTest.addTestResult(testName, 0, true);
+		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -216,6 +222,7 @@ public class PDETestListener implements ITestRunListener2 {
 		}
 		printMessage("[ ERROR ] Test n°" + count() + " ended : " + testName + " - status: " + statusMessage	+ ", expected: " + expected + ", actual: " + actual, trace);
 		currentCadseTest.addTestResult(testName, 0, false);
+		_failed = true;
 	}
 
 	/* (non-Javadoc)
