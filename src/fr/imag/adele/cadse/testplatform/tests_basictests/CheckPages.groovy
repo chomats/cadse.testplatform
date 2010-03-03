@@ -21,9 +21,10 @@ public class CheckPages extends CadseTest {
 
 		/* CheckPages - CADSEg */
 		run.buildManager.deleteBundle("Model.Workspace.CADSE_CheckPages")
-		run.runJavaTest(null, 'CheckPages_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.checkpages.CheckPages_ts_CADSEg') {
+		if (run.runJavaTest(null, 'CheckPages_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.checkpages.CheckPages_ts_CADSEg') {
 			wsDir = delegate.wsDir
-		}
+		}) 
+			return true;
 
 		return false;
 	}

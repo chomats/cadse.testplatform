@@ -7,13 +7,13 @@ public class IsAbstract extends CadseTest {
 
 	public void addBundleToCompile() {
 		/* Libraries */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
 		/* Bundle to be created */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
 	}
 	
 	public boolean runTest() {
@@ -26,7 +26,6 @@ public class IsAbstract extends CadseTest {
 		}
 
 		/* IsAbstract - Execution */
-		startTime = System.currentTimeMillis()
 		run.buildManager.createBundle(wsDir, "Model.Workspace.CADSE_IsAbstract", "src-gen")
 		run.runJavaTest(null, 'IsAbstract_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_execution'){
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"

@@ -7,13 +7,13 @@ public class Link extends CadseTest {
 
 	public void addBundleToCompile() {
 		/* Libraries */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
-		run.buildManager.createBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
+		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
+		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
 		/* Bundle to be created */
-		run.buildManager.createBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
+		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
 	}
 	
 	public boolean runTest() {

@@ -7,15 +7,15 @@ public class CadseTestCollector {
 	AllPDETestListener		alltest	= new AllPDETestListener();
 	public PDETestListener	pdeTestListener;
 
-	public void runTestRunnerClient(String testName, String classname, int portNumber, String testOutput) {
+	public void runTestRunnerClient(CadseTestPart p, String classname, int portNumber, String testOutput) {
 		try {
-			pdeTestListener = new PDETestListener(classname, testName);
+			pdeTestListener = new PDETestListener(classname, p);
 			pdeTestListener.setOutputFile(testOutput);
 			ITestRunListener2[] listeners = new ITestRunListener2[2];
 			listeners[0] = pdeTestListener;
 			listeners[1] = alltest;
 			new RemoteTestRunnerClient().startListening(listeners, portNumber);
-			System.out.println("Listening on port " + portNumber + " for test suite " + testName + " results ...");
+			System.out.println("Listening on port " + portNumber + " for test suite " + p.testName + " results ...");
 		} catch (Throwable th) {
 			th.printStackTrace();
 		}

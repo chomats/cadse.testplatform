@@ -55,7 +55,7 @@ public class BuildManager{
 		mf.write(new FileOutputStream(manifestoutfile));
 	}
 
-	public boolean createBundle(String pathWs, String name, String srcFolder) {
+	boolean createBundle(String pathWs, String name, String srcFolder) {
 		return createBundle(pathWs, name, srcFolder, true)
 	}
 
@@ -90,14 +90,14 @@ public class BuildManager{
 	}
 
 	/** true if failed */
-	public boolean createBundle(String pathWs, String name, String srcFolder, boolean excludeDot) {
+	boolean createBundle(String pathWs, String name, String srcFolder, boolean excludeDot) {
 		FileBuildModel fbm = new FileBuildModel("${pathWs}/$name/build.properties")
 		fbm.setDefaultSourceFolder(srcFolder)
         return createBundle(fbm, pathWs, name, excludeDot)
     }
 
 	/** true if failed */
-	public boolean createBundle(FileBuildModel fbm, String pathWs, String name, boolean excludeDot) {
+	boolean createBundle(FileBuildModel fbm, String pathWs, String name, boolean excludeDot) {
 		try {
 			String srcFolder = fbm.getDefaultSourceFolder();
 
@@ -198,7 +198,7 @@ public class BuildManager{
 
 
 	/** true if failed */
-	public boolean deleteBundle( String name) {
+	boolean deleteBundle( String name) {
 		try {
 			
 	  		ant.delete() {

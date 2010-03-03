@@ -71,14 +71,16 @@ public class RunJavaTestClass{
 	String display
 	
 	CadseTestPlatform run
+	CadseTestPart tp
 
-	public RunJavaTestClass(CadseTestPlatform run, String testProperties, String testName,String testPluginName, String classname ) {
-		this.testProperties = testProperties
-		this.testName = testName;
-		this.testPluginName =testPluginName
-		this.classname = classname
+	public RunJavaTestClass(CadseTestPlatform run, CadseTestPart tp) {
+		this.testProperties = tp.testProperties
+		this.testName = tp.testName;
+		this.testPluginName =tp.testPluginName
+		this.classname = tp.classname
 		this.run = run;
-
+		this.tp = tp;
+		
 		testPlatformPath = run.testPlatformPath;
 		wsTest = run.wsTest;
 		testEclipsePath = run.testEclipsePath;
@@ -141,7 +143,7 @@ public class RunJavaTestClass{
 			ant.delete(file: outputFile)
 
 		ant.echo(message:"Running ${testName}. Result file: ${testOutput}")
-		run.cadseCollector.runTestRunnerClient(testName, classname, 2566, testOutput)
+		run.cadseCollector.runTestRunnerClient(tp, classname, 2566, testOutput)
 
 		if (true) { //System.getProperties().get("os.name").startsWith("Windows")
 			// Windows

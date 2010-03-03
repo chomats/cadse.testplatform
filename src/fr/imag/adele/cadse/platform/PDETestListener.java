@@ -62,17 +62,20 @@ public class PDETestListener implements ITestRunListener2 {
 	/** The current test. */
 	private TestCase				currentTest;
 	
+	public CadseTestPart			currentCadseTest;
+	
 	/**
 	 * Instantiates a new pDE test listener.
 	 * 
 	 * @param suite the suite
 	 * @param testName the test name
 	 */
-	public PDETestListener(String suite, String testName) {
+	public PDETestListener(String suite, CadseTestPart testName) {
 		suiteName = suite;
 		junitTestSuite = new JUnitTest(suiteName);
 		junitTestSuite.setProperties(System.getProperties());
-		this.testName = testName;
+		this.testName = testName.testName;
+		this.currentCadseTest = testName;
 	}
 
 	/**
@@ -190,6 +193,7 @@ public class PDETestListener implements ITestRunListener2 {
 		numberOfTestsPassed = count() - (numberOfTestsFailed + numberOfTestsWithError);
 		getXMLJUnitResultFormatter().endTest(currentTest);
 		printMessage("[SUCCESS] Test n°" + count() + " ended : " + testName);
+		currentCadseTest.addTestResult(testName, 0, true);
 	}
 
 	/* (non-Javadoc)
@@ -211,6 +215,7 @@ public class PDETestListener implements ITestRunListener2 {
 			getXMLJUnitResultFormatter().addError(currentTest, new Exception(trace));
 		}
 		printMessage("[ ERROR ] Test n°" + count() + " ended : " + testName + " - status: " + statusMessage	+ ", expected: " + expected + ", actual: " + actual, trace);
+		currentCadseTest.addTestResult(testName, 0, false);
 	}
 
 	/* (non-Javadoc)
