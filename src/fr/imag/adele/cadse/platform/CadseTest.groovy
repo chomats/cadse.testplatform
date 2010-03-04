@@ -19,17 +19,18 @@ public abstract class CadseTest {
 	public CadseTestPart addTestPart(String testProperties, String testName, String testPluginName, String classname) {
 		return addTestPart(testProperties, testName, testPluginName, classname, null);
 	}
-
+	
 	/** true if failed */
 	public CadseTestPart addTestPart(String testProperties, String testName, String testPluginName, String classname, Closure c) {
 		CadseTestPart tp = new CadseTestPart(testProperties, testName, testPluginName, classname, c);
 		parts.add(tp)
+		tp.setCadseTestPlatform(run);
 		return tp;
 	}
-
+	
 	public void init() {
 	}
-
+	
 	/** true if failed */
 	public boolean runTest() {
 		long startTime = System.currentTimeMillis();
@@ -45,7 +46,7 @@ public abstract class CadseTest {
 		status = failed ? 1 : 0;
 		return failed;
 	}
-
+	
 	public static void main(CadseTest ...cadseTest) {
 		new CadseTestPlatform().runTests(cadseTest);
 	}
