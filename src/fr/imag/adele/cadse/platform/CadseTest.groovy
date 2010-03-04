@@ -8,7 +8,7 @@ import groovy.lang.Closure;
 public abstract class CadseTest {
 	public CadseTestPlatform	run;
 	public List<CadseTestPart> 		parts = new ArrayList<CadseTestPart>();
-	int status = -1 ; // 0 SUCESS, 1: FAILED; -1 NOT EXECUTED
+	int status = -1 ; // 0 SUCESS, 1: FAILED; -1 NOT EXECUTED, -2 RUNNING
 	public long timestamp;
 	
 	public void setCadseTestPlatform(CadseTestPlatform lRun) {
@@ -33,10 +33,10 @@ public abstract class CadseTest {
 	/** true if failed */
 	public boolean runTest() {
 		long startTime = System.currentTimeMillis();
-		status = 1;
+		status = -2;
 		boolean failed = false;
 		for (CadseTestPart tp : parts) {
-			if (run.run(tp)) {
+			if (run.run(this, tp)) {
 				failed = true;
 				break;
 			}

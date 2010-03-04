@@ -24,4 +24,8 @@ public class CadseTestCollector {
 	public boolean failed() {
 		return pdeTestListener.failed();
 	}
+	
+	public boolean isTerminated() {
+		return pdeTestListener.isTestRunEnded();
+	}
 }

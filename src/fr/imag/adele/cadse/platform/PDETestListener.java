@@ -154,7 +154,6 @@ public class PDETestListener implements ITestRunListener2 {
 	 * @see org.eclipse.jdt.internal.junit.model.ITestRunListener2#testRunEnded(long)
 	 */
 	public synchronized void testRunEnded(long elapsedTime) {
-		testRunEnded = true;
 		junitTestSuite.setCounts(testsRunCount, numberOfTestsFailed, numberOfTestsWithError);
 		junitTestSuite.setRunTime(elapsedTime);
 		getXMLJUnitResultFormatter().endTestSuite(junitTestSuite);
@@ -162,6 +161,7 @@ public class PDETestListener implements ITestRunListener2 {
 		printMessage(flag + " Test suite ended " + " - Total: " + totalNumberOfTests
 				+ " (Errors: " + numberOfTestsWithError + ", Failed: " + numberOfTestsFailed + ", Passed: "
 				+ numberOfTestsPassed + "), duration " + elapsedTime/1000 + "s.");
+		testRunEnded = true;
 	}
 
 	/* (non-Javadoc)
@@ -194,8 +194,8 @@ public class PDETestListener implements ITestRunListener2 {
 	public synchronized void testEnded(String testId, String testName) {
 		getXMLJUnitResultFormatter().endTest(currentTest);
 		CadseTestMethod test = currentCadseTest.findTestResult(testName);
+		numberOfTestsPassed = count() - (numberOfTestsFailed + numberOfTestsWithError);
 		if (test == null) {
-			numberOfTestsPassed = count() - (numberOfTestsFailed + numberOfTestsWithError);
 			printMessage("[SUCCESS] Test n°" + count() + " ended : " + testName);
 			currentCadseTest.addTestResult(testName, 0, true);
 		}
@@ -207,6 +207,7 @@ public class PDETestListener implements ITestRunListener2 {
 	 */
 	public synchronized void testFailed(int status, String testId, String testName, String trace, String expected,
 			String actual) {
+		_failed = true;
 		String statusMessage = String.valueOf(status);
 		if (status == ITestRunListener2.STATUS_OK) {
 			numberOfTestsPassed++;
@@ -222,7 +223,6 @@ public class PDETestListener implements ITestRunListener2 {
 		}
 		printMessage("[ ERROR ] Test n°" + count() + " ended : " + testName + " - status: " + statusMessage	+ ", expected: " + expected + ", actual: " + actual, trace);
 		currentCadseTest.addTestResult(testName, 0, false);
-		_failed = true;
 	}
 
 	/* (non-Javadoc)
@@ -262,6 +262,10 @@ public class PDETestListener implements ITestRunListener2 {
 	 */
 	public synchronized void testTreeEntry(String description) {
 		System.out.println("Test Tree Entry - Description: " + description);
+	}
+	
+	public boolean isTestRunEnded() {
+		return testRunEnded;
 	}
 
 	/**

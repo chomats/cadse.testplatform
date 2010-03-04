@@ -218,7 +218,11 @@ public class RunJavaTestClass{
 						env(key:"DISPLAY", value:"${display}")
 				}
 		}
-		
+		while( true) {
+			if (run.cadseCollector.isTerminated())
+				break;
+			Thread.sleep 20;
+		}
 		return run.cadseCollector.failed();
 
 	}
