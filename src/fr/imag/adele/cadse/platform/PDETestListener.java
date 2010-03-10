@@ -8,6 +8,7 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.eclipse.jdt.internal.junit.model.ITestRunListener2;
@@ -156,7 +157,11 @@ public class PDETestListener implements ITestRunListener2 {
 	public synchronized void testRunEnded(long elapsedTime) {
 		junitTestSuite.setCounts(testsRunCount, numberOfTestsFailed, numberOfTestsWithError);
 		junitTestSuite.setRunTime(elapsedTime);
-		getXMLJUnitResultFormatter().endTestSuite(junitTestSuite);
+		try {
+			getXMLJUnitResultFormatter().endTestSuite(junitTestSuite);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 		String flag = (failed() ? "[ ERROR ]" : "[SUCCESS]");
 		printMessage(flag + " Test suite ended " + " - Total: " + totalNumberOfTests
 				+ " (Errors: " + numberOfTestsWithError + ", Failed: " + numberOfTestsFailed + ", Passed: "
