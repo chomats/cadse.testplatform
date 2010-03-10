@@ -6,7 +6,7 @@ import java.util.List;
 import groovy.lang.Closure;
 
 public class CadseTestPart {
-	public CadseTestPlatform run;
+	public ICadseTestPlatform run;
 	public String testProperties;
 	public String testName;
 	public String testPluginName;
@@ -27,7 +27,7 @@ public class CadseTestPart {
 		this.c = c;
 	}
 
-	public void setCadseTestPlatform(CadseTestPlatform lRun) {
+	public void setCadseTestPlatform(ICadseTestPlatform lRun) {
 		run = lRun;
 	}
 
@@ -42,7 +42,7 @@ public class CadseTestPart {
 
 	public void addBundle(String path, String name, String defaultSource) {
 		if (path == null) {
-			path = run.testPlatformPath + "/test-ws";
+			path = run.getTestPlatformPath() + "/test-ws";
 		}
 
 		addBundle(new BundleBuildDescription(path, name, defaultSource));
