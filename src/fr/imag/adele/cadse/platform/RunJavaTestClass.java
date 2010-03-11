@@ -101,7 +101,7 @@ public class RunJavaTestClass{
 		deleteWsDir 	= toBoolean(getTestValue("deleteWsDir", testName, "true"));
 		redirectErrorStream 	= toBoolean(getTestValue("redirectErrorStream", testName, "true"));
 		
-		int waitCollector 		= toInt(getTestValue("waitCollector", testName, "0"));
+		int waitCollector 		= toInt(getTestValue(":w", testName, "0"));
 		resourcesPath 	= converToPath(getTestValue("resourcesPath", testName, wsTest+"/"+testPluginName+"/resources/"));
 		outputFile 		= converToPath(getTestValue("outputFile", testName, testReport+"/"+testName+".txt"));
 		errorFile  		= converToPath(getTestValue("errorFile", testName, testReport+"/"+testName+".txt"));
@@ -187,12 +187,14 @@ public class RunJavaTestClass{
 		
 		watchdog = new ExecuteWatchdog(timeout);
 		watchdog.start(p);
-		if (waitCollector != 0)
-		try {
-			Thread.sleep( waitCollector );
-		} catch (InterruptedException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+		if (waitCollector != 0) {
+			System.out.println( "Regiser wait "+waitCollector);
+			try {
+				Thread.sleep( waitCollector );
+			} catch (InterruptedException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 		}
 		System.out.println( "Regiser run test runner client");
 		run.getCadseTestCollector().runTestRunnerClient(tp, classname, 2566, testOutput);
