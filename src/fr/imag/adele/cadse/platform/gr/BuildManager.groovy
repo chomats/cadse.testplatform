@@ -124,7 +124,8 @@ public class BuildManager implements IBuildManager{
 			ant.javac(destdir:classesDir, debug:debugFlag, debuglevel:'lines,vars,source', classpathref:'build.class.path', 
 					source:'1.5',
 					target:'1.5',
-					includeantruntime:false) {
+					includeantruntime:false,
+					nowarn:true) {
 				for(s in srcFolders) {
 					src(path:"$pathWs/$name/$s")
 				}
