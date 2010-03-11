@@ -1,5 +1,6 @@
 package fr.imag.adele.cadse.platform;
 
+
 import org.eclipse.jdt.internal.junit.model.ITestRunListener2;
 import org.eclipse.jdt.internal.junit.runner.MessageIds;
 
@@ -113,4 +114,5 @@ public class AllPDETestListener implements ITestRunListener2 {
 	 */
 	public void testReran(String testId, String testClass, String testName, int status, String trace, String expected, String actual) {
 	}
+
 }

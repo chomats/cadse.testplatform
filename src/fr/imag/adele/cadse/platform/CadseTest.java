@@ -1,17 +1,18 @@
-package fr.imag.adele.cadse.platform
+package fr.imag.adele.cadse.platform;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import groovy.lang.Closure;
 
 
 public abstract class CadseTest {
-	public CadseTestPlatform	run;
+	public AbstractCadseTestPlatform	run;
 	public List<CadseTestPart> 		parts = new ArrayList<CadseTestPart>();
-	int status = -1 ; // 0 SUCESS, 1: FAILED; -1 NOT EXECUTED, -2 RUNNING
+	public int status = -1 ; // 0 SUCESS, 1: FAILED; -1 NOT EXECUTED, -2 RUNNING
 	public long timestamp;
 	
-	public void setCadseTestPlatform(CadseTestPlatform lRun) {
+	public void setCadseTestPlatform(AbstractCadseTestPlatform lRun) {
 		run = lRun;
 	}
 	
@@ -23,7 +24,7 @@ public abstract class CadseTest {
 	/** true if failed */
 	public CadseTestPart addTestPart(String testProperties, String testName, String testPluginName, String classname, Closure c) {
 		CadseTestPart tp = new CadseTestPart(testProperties, testName, testPluginName, classname, c);
-		parts.add(tp)
+		parts.add(tp);
 		tp.setCadseTestPlatform(run);
 		return tp;
 	}
@@ -42,13 +43,21 @@ public abstract class CadseTest {
 				break;
 			}
 		}
-		timestamp = System.currentTimeMillis()-startTime
+		timestamp = System.currentTimeMillis()-startTime;
 		status = failed ? 1 : 0;
 		return failed;
 	}
 	
 	public static void main(CadseTest ...cadseTest) {
-		new CadseTestPlatform().runTests(cadseTest);
+		try {
+			((AbstractCadseTestPlatform) Class.forName("fr.imag.adele.cadse.platform.gr.CadseTestPlatform").newInstance()).runTests(cadseTest);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getName() {
