@@ -8,10 +8,10 @@ import fr.imag.adele.cadse.platform.*
  * @author chomats
  *
  */
-public class AllTestRun{
+public class AllTestRun extends CadseTest {
 
 	public static void main(String[] args) {
-		new CadseTestPlatform().runTests(
+		main(
 				//new CreateSimpleLinkRun(),
 				//new DeleteCadseRun(),
 				//new OrderPagesRun(),
