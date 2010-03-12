@@ -1,9 +1,15 @@
-package fr.imag.adele.cadse.platform
+package fr.imag.adele.cadse.platform.gr
 
-import java.text.SimpleDateFormatimport java.util.jar.Manifestimport org.osgi.framework.Version
+
+import java.text.SimpleDateFormatimport java.util.ArrayList;
+import java.util.List;
+import java.util.jar.Manifestimport org.osgi.framework.Version
+
+import fr.imag.adele.cadse.platform.*;
+
 import java.lang.Throwable
 
-public class BuildManager{
+public class BuildManager implements IBuildManager{
 
 	String testPlatformPath
 	String testEclipsePath
@@ -14,7 +20,7 @@ public class BuildManager{
 
 	String plugins = "dropins" // plugins
 	
-	def bundlestoCompile = []
+	List<BundleBuildDescription> bundlestoCompile = new ArrayList<BundleBuildDescription>();
 
 	public BuildManager(AntBuilder ant, String platformPath) {
 		this.ant =  ant;
@@ -118,7 +124,8 @@ public class BuildManager{
 			ant.javac(destdir:classesDir, debug:debugFlag, debuglevel:'lines,vars,source', classpathref:'build.class.path', 
 					source:'1.5',
 					target:'1.5',
-					includeantruntime:false) {
+					includeantruntime:false,
+					nowarn:true) {
 				for(s in srcFolders) {
 					src(path:"$pathWs/$name/$s")
 				}
@@ -198,7 +205,7 @@ public class BuildManager{
 
 
 	/** true if failed */
-	boolean deleteBundle( String name) {
+	public boolean deleteBundle( String name) {
 		try {
 			
 	  		ant.delete() {
@@ -209,5 +216,23 @@ public class BuildManager{
 			e.printStackTrace();
 			return true;
 		}
+	}
+	
+	public void addBundle(BundleBuildDescription b) {
+		for(BundleBuildDescription findB : bundlestoCompile) {
+			if (findB.equals(b)) return;
+		}
+		bundlestoCompile.add( b);
+	}
+	
+	@Override
+	public List<BundleBuildDescription> getBundlestoCompile() {
+		return bundlestoCompile;
+	}
+	
+	@Override
+	public void setBundlestoCompile(
+			List<BundleBuildDescription> bundlestoCompile) {
+		this.bundlestoCompile = bundlestoCompile;
 	}
 }
