@@ -32,6 +32,7 @@ public class RunJavaTestClass{
 
 	public long timeout;
 	public int debugPort;
+	public int junitPort;
 	public boolean suspend;
 	public boolean redirectErrorStream;
 	
@@ -95,6 +96,7 @@ public class RunJavaTestClass{
 			timeout = 03600000L;
 		
 		debugPort 		= toInt(getTestValue("debug.port", testName, "0"));
+		junitPort 		= toInt(getTestValue("junit.port", testName, "2566"));
 		suspend 		= toBoolean(getTestValue("debug.suspend", testName, "false"));
 
 		cadseToExecute 	= getTestValue("cadseToExecute", testName, null);
@@ -130,7 +132,7 @@ public class RunJavaTestClass{
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		processBuilder.command(execEclipse, "-application", application, 
 				"-data", wsDir, "-testPluginName", testPluginName, "-className", classname, "-consoleLog",
-				"-console", "-clean", "-port", "2566", "-loaderpluginname", "org.eclipse.swtbot.eclipse.junit4.headless",
+				"-console", "-clean", "-port", Integer.toString(junitPort), "-loaderpluginname", "org.eclipse.swtbot.eclipse.junit4.headless",
 				"-testloaderclass", "org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader", 
 				"-vmargs", 
 				"-Dfr.image.adele.cadse.test.path="+testPlatformPath,
@@ -197,7 +199,7 @@ public class RunJavaTestClass{
 			}
 		}
 		System.out.println( "Regiser run test runner client");
-		run.getCadseTestCollector().runTestRunnerClient(tp, classname, 2566, testOutput);
+		run.getCadseTestCollector().runTestRunnerClient(tp, classname, junitPort, testOutput);
 		
 		try {
 			p.waitFor();
