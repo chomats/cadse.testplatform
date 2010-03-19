@@ -12,7 +12,7 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 		ant =  new AntBuilder();
 		// load properties ...
 		File f = null;
-		f = new File(ant.project.properties.basedir, "test.properties");
+		f = new File(ant.project.properties.basedir, "cadse_test.properties");
 		if (f.exists()) {
 			ant.property(file:f);
 		}
@@ -20,10 +20,12 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 		if (f.exists()) {
 			ant.property(file:f);
 		}
-		f = new File(ant.project.properties.basedir, "cadse_test.properties");
+		f = new File(ant.project.properties.basedir, "test.properties");
 		if (f.exists()) {
 			ant.property(file:f);
 		}
+		
+		
 		
 		testPlatformPath = ant.project.properties.testPlatformPath;
 		testReport =testPlatformPath + "/report";
@@ -41,7 +43,6 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 		System.out.println("");
 		
 		ant.delete(dir : testReport);
-		
 		buildManager = new BuildManager(ant, testPlatformPath)
 		
 	}
