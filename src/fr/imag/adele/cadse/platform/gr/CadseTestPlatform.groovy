@@ -25,11 +25,10 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 			ant.property(file:f);
 		}
 		
-		
-		
 		testPlatformPath = ant.project.properties.testPlatformPath;
-		testReport =testPlatformPath + "/report";
-		testEclipsePath  = testPlatformPath+"/eclipse";
+		testReport = ant.project.properties.'testPlatformPath.report';
+		testEclipsePath  = ant.project.properties.'testPlatformPath.eclipse';
+		
 		collapseSuccess = ant.project.properties.collapseSuccess == null ? true : Boolean.parseBoolean( ant.project.properties.collapseSuccess);
 		wsTest = ant.project.properties.wsTest
 		
