@@ -29,17 +29,19 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 		testReport =testPlatformPath + "/report";
 		testEclipsePath  = testPlatformPath+"/eclipse";
 		collapseSuccess = ant.project.properties.collapseSuccess == null ? true : Boolean.parseBoolean( ant.project.properties.collapseSuccess);
+		wsTest = ant.project.properties.wsTest
 		
 		System.out.println("********************************************************");
 		System.out.println("* base dir : ${ant.project.properties.basedir}");
 		System.out.println("* test Platform Path : ${testPlatformPath}");
 		System.out.println("* test report Path   : ${testReport}");
 		System.out.println("* test eclipse Path  : ${testEclipsePath}");
+		System.out.println("* wsTest             : ${wsTest}");
 		System.out.println("********************************************************");
 		System.out.println("");
 		
 		buildManager = new BuildManager(ant, testPlatformPath)
-		wsTest = ant.project.properties.wsTest
+		
 	}
 	
 	public void loadPropertyFile(String testProperties) {
