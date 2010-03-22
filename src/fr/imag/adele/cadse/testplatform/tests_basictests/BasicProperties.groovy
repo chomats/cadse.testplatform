@@ -13,8 +13,9 @@ public class BasicProperties extends CadseTest {
 	}
 	
 	public static void main(String[] args) {
-		main(new BasicProperties_double(), 
-		new BasicProperties_long(), 
-		new BasicProperties_integer())
+		main(
+		new BasicProperties_double(), 
+		new BasicProperties_integer(),
+		new BasicProperties_long())
 	}
 }
