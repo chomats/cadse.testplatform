@@ -73,4 +73,8 @@ public class CadseTestPart {
 		return null;
 	}
 
+	public void report(RunJavaTestClass runJavaTestClass,
+			AbstractCadseTestPlatform run2, boolean failed) {
+	}
+
 }
