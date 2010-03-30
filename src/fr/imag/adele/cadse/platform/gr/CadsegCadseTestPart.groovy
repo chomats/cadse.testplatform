@@ -22,6 +22,7 @@ public class CadsegCadseTestPart extends CadseTestPart {
 			String wsDir = runJavaTestClass.wsDir;
 			String testReport = runJavaTestClass.testReport
 			AntBuilder ant = run2.ant;
+			ant.delete(file:"${testReport}/${testName}.zip")
 			ant.zip(destfile:"${testReport}/${testName}.zip", basedir:wsDir, excludes:".metadata/**")
 		}
 	}
