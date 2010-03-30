@@ -109,7 +109,7 @@
 							<goal>java</goal>
 						</goals>
 						<configuration>
-							<mainClass>fr.imag.adele.cadse.testplatform.tests_basictests.All</mainClass>
+							<mainClass>fr.imag.adele.cadse.testplatform.tests_basictests.All_Continuum</mainClass>
 						</configuration>
 					</execution>
 				</executions>
