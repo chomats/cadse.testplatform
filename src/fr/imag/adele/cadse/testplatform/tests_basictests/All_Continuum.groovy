@@ -1,9 +1,9 @@
-package fr.imag.adele.cadse.testplatform.tests_basictests
+import fr.imag.adele.cadse.platform.CadseTest;
 
 import fr.imag.adele.cadse.platform.*
 
 
-public class All extends CadseTest {
+public class All_Continuum extends CadseTest {
 	
 	public static void main(String[] args) {
 		main(
