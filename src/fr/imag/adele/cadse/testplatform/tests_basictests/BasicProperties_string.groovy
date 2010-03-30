@@ -1,9 +1,10 @@
 package fr.imag.adele.cadse.testplatform.tests_basictests
+import fr.imag.adele.cadse.platform.gr.CadsegTestCase 
 
 import fr.imag.adele.cadse.platform.*
 
 
-public class BasicProperties_string extends CadseTest {
+public class BasicProperties_string extends CadsegTestCase {
 	
 	public void init() {
 		/* Libraries */

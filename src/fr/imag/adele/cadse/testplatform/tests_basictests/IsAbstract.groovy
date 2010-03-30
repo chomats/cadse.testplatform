@@ -1,10 +1,11 @@
 package fr.imag.adele.cadse.testplatform.tests_basictests
+import fr.imag.adele.cadse.platform.gr.CadsegTestCase 
 
 import fr.imag.adele.cadse.platform.*
 
 
-public class IsAbstract extends CadseTest {
-
+public class IsAbstract extends CadsegTestCase {
+	
 	public void init() {
 		/* Libraries */
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
@@ -14,7 +15,7 @@ public class IsAbstract extends CadseTest {
 		
 		/* Bundle to be created */
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
-	
+		
 		/* IsAbstract - CADSEg */
 		CadseTestPart tp;
 		tp = addTestPart(null, 'IsAbstract_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.isabstract.IsAbstract_ts_CADSEg')
@@ -27,7 +28,7 @@ public class IsAbstract extends CadseTest {
 		}
 		tp.addBundle(null, "Model.Workspace.CADSE_IsAbstract", "src-gen")
 	}
-
+	
 	public static void main(String[] args) {
 		main(new IsAbstract())
 	}
