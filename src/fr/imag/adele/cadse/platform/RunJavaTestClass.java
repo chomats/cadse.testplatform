@@ -223,6 +223,7 @@ public class RunJavaTestClass{
 		streamHandler.stop();
         closeStreams(p);
 		
+        tp.report(this, run, run.cadseCollector.failed());
         try {
           	watchdog.checkException();
         } catch (BuildException e) {
@@ -317,23 +318,23 @@ public class RunJavaTestClass{
 //		}
 //}
 
-	private long toLong(String value) {
+    public long toLong(String value) {
 		return Long.parseLong(value);
 	}
 
-	private int toInt(String value) {
+	public int toInt(String value) {
 		return Integer.parseInt(value);
 	}
 
-	private boolean toBoolean(String value) {
+	public boolean toBoolean(String value) {
 		return Boolean.parseBoolean(value);
 	}
 	
-	private String converToPath(String value) {
+	public String converToPath(String value) {
 		return new java.io.File(value).getPath();
 	}
 
-	private String getTestValue(String key, String testName, String defaultValue) {
+	public String getTestValue(String key, String testName, String defaultValue) {
 		String realKey = "test."+testName+"."+key;
 		Hashtable p = ant.getProject().getProperties();
 		String ret = (String) p.get(realKey);
