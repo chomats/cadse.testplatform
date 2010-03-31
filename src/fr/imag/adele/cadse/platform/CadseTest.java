@@ -49,15 +49,18 @@ public abstract class CadseTest {
 	}
 	
 	public static void main(CadseTest ...cadseTest) {
+		int errorCode = 0;
 		try {
-			((AbstractCadseTestPlatform) Class.forName("fr.imag.adele.cadse.platform.gr.CadseTestPlatform").newInstance()).runTests(cadseTest);
-		} catch (InstantiationException e) {
+			final AbstractCadseTestPlatform platform = (AbstractCadseTestPlatform) Class.forName("fr.imag.adele.cadse.platform.gr.CadseTestPlatform").newInstance();
+			boolean failed = platform.runTests(cadseTest);
+			if (failed) {
+				errorCode = 1;
+			}				
+		} catch (Throwable e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+			errorCode = 2;
+		} 
+		System.exit(errorCode);
 	}
 	
 	public String getName() {
