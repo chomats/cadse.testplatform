@@ -10,8 +10,7 @@ public class TestCadsegRun extends CadseTest {
 		//compile and deploy bundles
 		run.addBundle(run.wsTest, "GraphicTests", "src")
 		run.addBundle(run.wsTest, "TEST.CU.Workspace.Workspace", "src")
-		run.addBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
-	
+		
 		//launch test
 		addTestPart(null, 'TestCadsegRun', 'TEST.CU.Workspace.Workspace', 'test.fede.workspace.domain.internal.TestCadsegSuite') {
 			delegate.cadseToExecute = 'Model.Workspace.Workspace'

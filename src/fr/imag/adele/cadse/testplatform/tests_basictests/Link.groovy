@@ -10,7 +10,6 @@ public class Link extends CadsegTestCase {
 		/* Libraries */
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
 		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.addBundle(run.wsTest, "org.eclipse.swtbot.eclipse.junit4.headless", "src")
 		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
 		/* Bundle to be created */
