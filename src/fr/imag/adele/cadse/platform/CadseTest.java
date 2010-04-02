@@ -60,7 +60,8 @@ public abstract class CadseTest {
 			e.printStackTrace();
 			errorCode = 2;
 		} 
-		System.exit(errorCode);
+		if (errorCode != 0)
+			System.exit(errorCode);
 	}
 	
 	public String getName() {
