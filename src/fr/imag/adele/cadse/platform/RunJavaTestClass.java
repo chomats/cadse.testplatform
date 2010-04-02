@@ -50,6 +50,7 @@ public class RunJavaTestClass {
 	public String classname;
 	public String wsDirFolder;
 	public String application;
+	public String loaderpluginname;
 	public String jvm;
 	public String execEclipse;
 	public String display;
@@ -85,8 +86,8 @@ public class RunJavaTestClass {
 		}
 		wsDirFolder = converToPath(getTestValue("wsdir", testName, "test-ws"));
 		application = getTestValue("application", testName,
-				"org.eclipse.swtbot.eclipse.junit4.headless.swtbottestapplication");
-
+				"org.eclipse.pde.junit.runtime.nonuithreadtestapplication");
+		loaderpluginname = getTestValue("loaderpluginname", testName, "org.eclipse.jdt.junit4.runtime");
 		timeout = toLong(getTestValue("timeout", testName, "03600000"));
 		if (timeout <= 0) {
 			timeout = 03600000L;
@@ -132,7 +133,7 @@ public class RunJavaTestClass {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		processBuilder.command(execEclipse, "-application", application, "-data", wsDir, "-testPluginName",
 				testPluginName, "-className", classname, "-consoleLog", "-console", "-clean", "-port", Integer
-						.toString(junitPort), "-loaderpluginname", "org.eclipse.swtbot.eclipse.junit4.headless",
+						.toString(junitPort), "-loaderpluginname", loaderpluginname,
 				"-testloaderclass", "org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader", "-vmargs",
 				"-Dfr.image.adele.cadse.test.path=" + testPlatformPath, "-Dorg.eclipse.swtbot.screenshots.dir="
 						+ screenshots, "-Dtest.resourcesPath=" + resourcesPath,
