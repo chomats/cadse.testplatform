@@ -3,7 +3,9 @@ package fr.imag.adele.cadse.platform.gr
 
 import java.text.SimpleDateFormatimport java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Manifestimport org.osgi.framework.Version
+import java.util.jar.Manifest
+import org.eclipse.core.internal.resources.File;
+import org.osgi.framework.Version
 
 import fr.imag.adele.cadse.platform.*;
 
@@ -62,7 +64,11 @@ public class BuildManager implements IBuildManager{
 	}
 
 	boolean createBundle(String pathWs, String name, String srcFolder) {
-		return createBundle(pathWs, name, srcFolder, true)
+		File pom = new File("${pathWs}/$name/pom.xml");
+		if (pom.exists())
+			return callMaven("${pathWs}/$name", "clean install", "");
+		else
+			return createBundle(pathWs, name, srcFolder, true)
 	}
 
 	String getVersion(String manifestfile) {
@@ -101,6 +107,35 @@ public class BuildManager implements IBuildManager{
 		fbm.setDefaultSourceFolder(srcFolder)
         return createBundle(fbm, pathWs, name, excludeDot)
     }
+	
+	boolean callMaven(String basedir, String goals, String options) {
+		try {
+	      ant.java(classname: 'org.codehaus.classworlds.Launcher', fork:true,
+	    		  dir:basedir, failonerror:true) {
+	        jvmarg( value:'-Xmx512m')
+	        classpath() {
+	          fileset(dir:"${maven.home}/boot") {
+	            include( name:'*.jar')
+	          }
+	          fileset(dir:"${maven.home}/lib") {
+		            include( name:'*.jar')
+		          }
+	         }
+	        sysproperty( key:'classworlds.conf', value:"${maven.home}/bin/m2.conf")
+	        sysproperty( key:'maven.home', value:"${maven.home}")
+	        arg( line:"--batch-mode @{options} @{goal}")
+	      }
+	      return false;
+		} catch (Throwable e) {
+			println 'Error : ';
+			e.printStackTrace();
+			return true;
+		}
+	}
+	
+	boolean createBundleWithMaven(String name) {
+		return callMaven("${pathWs}/$name", "clean install", "");
+	}
 
 	/** true if failed */
 	boolean createBundle(FileBuildModel fbm, String pathWs, String name, boolean excludeDot) {
