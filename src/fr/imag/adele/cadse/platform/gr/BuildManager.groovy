@@ -106,7 +106,6 @@ public class BuildManager implements IBuildManager{
 	boolean createBundle(FileBuildModel fbm, String pathWs, String name, boolean excludeDot) {
 		try {
 			String srcFolder = fbm.getDefaultSourceFolder();
-
 			
 			ant.echo(message:"Compile and create bundle $name, debug $debug")
 			String classesDir = "$testPlatformPath/target/$name/classes"
