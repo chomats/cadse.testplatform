@@ -114,15 +114,15 @@ public class BuildManager implements IBuildManager{
 	    		  dir:basedir, failonerror:true) {
 	        jvmarg( value:'-Xmx512m')
 	        classpath() {
-	          fileset(dir:"${maven.home}/boot") {
+	          fileset(dir:"${maven-home}/boot") {
 	            include( name:'*.jar')
 	          }
-	          fileset(dir:"${maven.home}/lib") {
+	          fileset(dir:"${maven-home}/lib") {
 		            include( name:'*.jar')
 		          }
 	         }
-	        sysproperty( key:'classworlds.conf', value:"${maven.home}/bin/m2.conf")
-	        sysproperty( key:'maven.home', value:"${maven.home}")
+	        sysproperty( key:'classworlds.conf', value:"${maven-home}/bin/m2.conf")
+	        sysproperty( key:'maven.home', value:"${maven-home}")
 	        arg( line:"--batch-mode @{options} @{goal}")
 	      }
 	      return false;
