@@ -108,7 +108,7 @@ public class BuildManager implements IBuildManager{
 			String srcFolder = fbm.getDefaultSourceFolder();
 
 			
-			ant.echo(message:"Compile and create bundle $name")
+			ant.echo(message:"Compile and create bundle $name, debug $debug")
 			String classesDir = "$testPlatformPath/target/$name/classes"
 	        ant.mkdir(dir : classesDir)
 	        ant.path( id:"build.class.path") {
