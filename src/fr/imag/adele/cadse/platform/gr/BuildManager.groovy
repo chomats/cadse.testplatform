@@ -4,11 +4,11 @@ package fr.imag.adele.cadse.platform.gr
 import java.text.SimpleDateFormatimport java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Manifest
-import org.eclipse.core.internal.resources.File;
 import org.osgi.framework.Version
 
 import fr.imag.adele.cadse.platform.*;
 
+import java.io.File;
 import java.lang.Throwable
 
 public class BuildManager implements IBuildManager{
