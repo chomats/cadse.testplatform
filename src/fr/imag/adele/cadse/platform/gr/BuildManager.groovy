@@ -65,9 +65,17 @@ public class BuildManager implements IBuildManager{
 
 	boolean createBundle(String pathWs, String name, String srcFolder) {
 		File pom = new File("${pathWs}/$name/pom.xml");
-		if (pom.exists())
-			return callMaven("${pathWs}/$name", "clean install", "");
-		else
+		if (pom.exists()) {
+			boolean ret=  callMaven("${pathWs}/$name", "clean install", "");
+			if (ret)
+				return true;
+			ant.delete() {
+	  			fileset(dir:"${testEclipsePath}/${plugins}/", includes:"${name}_*.jar")
+	  		}
+	        ant.copy(todir:"${testEclipsePath}/${plugins}", overwrite:true)  {
+	  			fileset(dir:"${pathWs}/$name/target", includes:"${name}_*.jar")
+	  		}
+		} else
 			return createBundle(pathWs, name, srcFolder, true)
 	}
 
@@ -109,21 +117,27 @@ public class BuildManager implements IBuildManager{
     }
 	
 	boolean callMaven(String basedir, String goals, String options) {
+		String mavenHome = ant.project.properties.get('maven.home');
+		if (mavenHome == null)
+			mavenHome = ant.project.properties.get('maven-home');
+		if (mavenHome == null)
+			throw new RuntimeException("Cannot found maven home");
+		
 		try {
 	      ant.java(classname: 'org.codehaus.classworlds.Launcher', fork:true,
 	    		  dir:basedir, failonerror:true) {
 	        jvmarg( value:'-Xmx512m')
 	        classpath() {
-	          fileset(dir:"${maven-home}/boot") {
+	          fileset(dir:"${mavenHome}/boot") {
 	            include( name:'*.jar')
 	          }
-	          fileset(dir:"${maven-home}/lib") {
+	          fileset(dir:"${mavenHome}/lib") {
 		            include( name:'*.jar')
 		          }
 	         }
-	        sysproperty( key:'classworlds.conf', value:"${maven-home}/bin/m2.conf")
-	        sysproperty( key:'maven.home', value:"${maven-home}")
-	        arg( line:"--batch-mode @{options} @{goal}")
+	        sysproperty( key:'classworlds.conf', value:"${mavenHome}/bin/m2.conf")
+	        sysproperty( key:'maven.home', value: mavenHome)
+	        arg( line:"--batch-mode ${options} ${goals}")
 	      }
 	      return false;
 		} catch (Throwable e) {
