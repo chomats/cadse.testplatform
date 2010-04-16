@@ -97,12 +97,12 @@ public class TutosRun extends CadseTest {
 		tp = addTestPart(null, 'Tuto2_Part3_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_CADSEg') { delegate.deleteWsDir = false; }
 		tp.deleteBundle 'Model.Workspace.WebAppModel';
 		
-		/* Execution : end of part 3.3 */ 
-		tp = addTestPart(null, 'Tuto2_Part3_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_execution'){
-			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
-			delegate.deleteWsDir = false;
-		}
-		tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")
+		/* Execution : end of part 3.3  
+		 tp = addTestPart(null, 'Tuto2_Part3_Execution','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part3_ts_execution'){
+		 delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
+		 delegate.deleteWsDir = false;
+		 }
+		 tp.addBundle (null, "Model.Workspace.WebAppModel", "src-gen")*/
 		
 		/* CADSEg : part 3.4*/ 
 		tp = addTestPart(null, 'Tuto2_Part4_CADSEg','fr.imag.adele.cadse.test.tutos','fr.imag.adele.cadse.test.tutos.tuto2.Tuto2Part4_ts_CADSEg') { delegate.deleteWsDir = false; }
