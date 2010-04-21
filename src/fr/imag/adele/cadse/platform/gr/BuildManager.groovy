@@ -123,11 +123,14 @@ public class BuildManager implements IBuildManager{
 			mavenHome = ant.project.properties.get('maven-home');
 		if (mavenHome == null)
 			throw new RuntimeException("Cannot found maven home");
+		String maxMem = ant.project.properties.get('maven.mx')
+		if (maxMem == null)
+			maxMem = "1024m"
 		
 		try {
 			ant.java(classname: 'org.codehaus.classworlds.Launcher', fork:true,
 					dir:basedir, failonerror:true) {
-						jvmarg( value:'-Xmx512m')
+						jvmarg( value:"-Xmx${maxMem}")
 						classpath() {
 							fileset(dir:"${mavenHome}/boot") { include( name:'*.jar') }
 							fileset(dir:"${mavenHome}/lib") { include( name:'*.jar') }
