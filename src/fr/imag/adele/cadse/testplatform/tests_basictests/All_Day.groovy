@@ -7,10 +7,11 @@ public class All_Day extends CadseTest {
 	
 	public static void main(String[] args) {
 		main(
-		//new BasicProperties_double(), // Night test only
-		//new BasicProperties_integer(),// Night test only
-		//new BasicProperties_long(), // Night test only
-		//new BasicProperties_string(), // Night test only
+		//new BasicProperties_boolean(), // Night test only
+		//new BasicProperties_double(),  // Night test only
+		//new BasicProperties_integer(), // Night test only
+		//new BasicProperties_long(),    // Night test only
+		//new BasicProperties_string(),  // Night test only
 		new CheckPages(),
 		new DefaultInstanceName(),
 		new HasContent(),
