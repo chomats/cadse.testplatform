@@ -7,6 +7,7 @@ public class All_Night extends CadseTest {
 	
 	public static void main(String[] args) {
 		main(
+		new BasicProperties_boolean(),
 		new BasicProperties_double(), 
 		new BasicProperties_integer(),
 		new BasicProperties_long(),
