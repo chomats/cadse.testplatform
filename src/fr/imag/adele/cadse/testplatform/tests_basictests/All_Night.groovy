@@ -7,12 +7,12 @@ public class All_Night extends CadseTest {
 	
 	public static void main(String[] args) {
 		main(
-		new BasicProperties_boolean(),
-		new BasicProperties_double(),
-		new BasicProperties_enum(),
-		new BasicProperties_integer(),
-		new BasicProperties_long(),
-		new BasicProperties_string(),
+		new BasicProperties_Boolean(),
+		new BasicProperties_Double(),
+		new BasicProperties_Enum(),
+		new BasicProperties_Integer(),
+		new BasicProperties_Long(),
+		new BasicProperties_String(),
 		new CheckPages(),
 		new DefaultInstanceName(),
 		new HasContent(),
