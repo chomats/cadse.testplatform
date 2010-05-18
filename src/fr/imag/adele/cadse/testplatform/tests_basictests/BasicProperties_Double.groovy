@@ -4,7 +4,7 @@ import fr.imag.adele.cadse.platform.gr.CadsegTestCase;
 import fr.imag.adele.cadse.platform.*
 
 
-public class BasicProperties_enum extends CadsegTestCase {
+public class BasicProperties_Double extends CadsegTestCase {
 	
 	public void init() {
 		/* Libraries */
@@ -16,19 +16,19 @@ public class BasicProperties_enum extends CadsegTestCase {
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
 		
 		/* TEST */
-		CadseTestPart tp = addTestPart(null, 'BasicProperties_enum_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_enum_ts_CADSEg')
-		tp.deleteBundle("Model.Workspace.CADSE_BasicProperties_enum")
+		CadseTestPart tp = addTestPart(null, 'BasicProperties_Double_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_Double_ts_CADSEg')
+		tp.deleteBundle("Model.Workspace.CADSE_BasicProperties_Double")
 		
 		
-		tp = addTestPart(null, 'BasicProperties_enum_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_enum_ts_execution') {
+		tp = addTestPart(null, 'BasicProperties_Double_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_Double_ts_execution') {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSE_BasicProperties_enum", "src-gen")
+		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSE_BasicProperties_Double", "src-gen")
 		
 	}
 	
 	public static void main(String[] args) {
-		main(new BasicProperties_enum())
+		main(new BasicProperties_Double())
 	}
 }
