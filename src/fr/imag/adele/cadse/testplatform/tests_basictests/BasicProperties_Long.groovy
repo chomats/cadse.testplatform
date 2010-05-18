@@ -17,14 +17,14 @@ public class BasicProperties_Long extends CadsegTestCase {
 		
 		/* TEST */
 		CadseTestPart tp = addTestPart(null, 'BasicProperties_Long_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_Long_ts_CADSEg')
-		tp.deleteBundle("Model.Workspace.CADSE_BasicProperties_Long")
+		tp.deleteBundle("Model.Workspace.CADSEBasicPropertiesLong")
 		
 		
 		tp = addTestPart(null, 'BasicProperties_Long_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_Long_ts_execution') {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSE_BasicProperties_Long", "src-gen")
+		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSEBasicPropertiesLong", "src-gen")
 		
 	}
 	
