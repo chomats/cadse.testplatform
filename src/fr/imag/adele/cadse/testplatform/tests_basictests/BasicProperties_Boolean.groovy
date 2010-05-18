@@ -17,14 +17,14 @@ public class BasicProperties_Boolean extends CadsegTestCase {
 		
 		/* TEST */
 		CadseTestPart tp = addTestPart(null, 'BasicProperties_Boolean_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_Boolean_ts_CADSEg')
-		tp.deleteBundle("Model.Workspace.CADSE_BasicProperties_Boolean")
+		tp.deleteBundle("Model.Workspace.CADSEBasicPropertiesBoolean")
 		
 		
 		tp = addTestPart(null, 'BasicProperties_Boolean_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.basicproperties.BasicProperties_Boolean_ts_execution') {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSE_BasicProperties_Boolean", "src-gen")
+		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSEBasicPropertiesBoolean", "src-gen")
 		
 	}
 	
