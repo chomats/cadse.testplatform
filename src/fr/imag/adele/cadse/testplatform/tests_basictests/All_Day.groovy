@@ -13,6 +13,12 @@ public class All_Day extends CadseTest {
 		//new BasicProperties_Integer(), // Night test only
 		//new BasicProperties_Long(),    // Night test only
 		//new BasicProperties_String(),  // Night test only
+		//new GroupTest1_Boolean(),      // Night test only
+		//new GroupTest1_Double(),       // Night test only
+		//new GroupTest1_Enum(),         // Night test only
+		//new GroupTest1_Integer(),      // Night test only
+		//new GroupTest1_Long(),         // Night test only
+		//new GroupTest1_String(),       // Night test only
 		new CheckPages(),
 		new DefaultInstanceName(),
 		new HasContent(),
