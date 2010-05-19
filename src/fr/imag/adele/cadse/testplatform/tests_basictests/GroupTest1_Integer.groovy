@@ -17,14 +17,14 @@ public class GroupTest1_Integer extends CadsegTestCase {
 		
 		/* TEST */
 		CadseTestPart tp = addTestPart(null, 'Group_basic_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Integer_ts_CADSEg')
-		tp.deleteBundle("Model.Workspace.CADSE_group_test1_Integer")
+		tp.deleteBundle("Model.Workspace.CADSEgroup_test1Integer")
 		
 		
 		tp = addTestPart(null, 'Group_basic_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Integer_ts_execution') {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSE_group_test1_Integer", "src-gen")
+		tp.addBundle("${run.testPlatformPath}/test-ws", "Model.Workspace.CADSEgroup_test1Integer", "src-gen")
 		
 	}
 	
