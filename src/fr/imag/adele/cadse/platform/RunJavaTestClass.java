@@ -85,8 +85,7 @@ public class RunJavaTestClass {
 			run.loadPropertyFile(testProperties);
 		}
 		wsDirFolder = converToPath(getTestValue("wsdir", testName, "test-ws"));
-		application = getTestValue("application", testName,
-				"org.eclipse.pde.junit.runtime.nonuithreadtestapplication");
+		application = getTestValue("application", testName, "org.eclipse.pde.junit.runtime.nonuithreadtestapplication");
 		loaderpluginname = getTestValue("loaderpluginname", testName, "org.eclipse.jdt.junit4.runtime");
 		timeout = toLong(getTestValue("timeout", testName, "03600000"));
 		if (timeout <= 0) {
@@ -108,7 +107,7 @@ public class RunJavaTestClass {
 		errorFile = converToPath(getTestValue("errorFile", testName, testReport + "/" + testName + ".txt"));
 		testOutput = converToPath(getTestValue("testOutput", testName, testReport + "/" + testName + ".xml"));
 		screenshots = converToPath(getTestValue("screenshots", testName, testReport + "/" + testName + "/screenshots/"));
-		memArgs = getTestValue("mem.args", testName, "-XX:MaxPermSize=128m -Xms400m -Xmx920m");
+		memArgs = getTestValue("mem.args", testName, "-XX:MaxPermSize=128m -Xms256m -Xmx1024m");
 		wsDir = converToPath(testPlatformPath + "/" + wsDirFolder);
 		if (((String) System.getProperties().get("os.name")).startsWith("Windows")) {
 			execEclipse = converToPath(getTestValue("execEclipse", testName, testEclipsePath + "/eclipse.exe"));
@@ -133,8 +132,8 @@ public class RunJavaTestClass {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		processBuilder.command(execEclipse, "-application", application, "-data", wsDir, "-testPluginName",
 				testPluginName, "-className", classname, "-consoleLog", "-console", "-clean", "-port", Integer
-						.toString(junitPort), "-loaderpluginname", loaderpluginname,
-				"-testloaderclass", "org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader", "-vmargs",
+						.toString(junitPort), "-loaderpluginname", loaderpluginname, "-testloaderclass",
+				"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader", "-vmargs",
 				"-Dfr.image.adele.cadse.test.path=" + testPlatformPath, "-Dorg.eclipse.swtbot.screenshots.dir="
 						+ screenshots, "-Dtest.resourcesPath=" + resourcesPath,
 				"-Dorg.eclipse.swtbot.keyboard.strategy=org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy",
