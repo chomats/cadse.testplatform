@@ -126,7 +126,9 @@ public class BuildManager implements IBuildManager{
 		String maxMem = ant.project.properties.get('maven.mx')
 		if (maxMem == null)
 			maxMem = "1024m"
-		
+		String profile = ant.project.properties.get('maven.profile')
+		if (profile != null && profile.length() !=0)
+			options = "-P ${profile} ${options}"
 		try {
 			ant.java(classname: 'org.codehaus.classworlds.Launcher', fork:true,
 					dir:basedir, failonerror:true) {
