@@ -21,6 +21,7 @@ import org.apache.tools.ant.util.FileUtils;
 
 public class RunJavaTestClass {
 
+	private static final String DISPLAY_CST = "DISPLAY";
 	public String testPlatformPath;
 	public String wsTest;
 	public String testEclipsePath;
@@ -117,6 +118,8 @@ public class RunJavaTestClass {
 		}
 		display = getTestValue("display", testName, null);
 
+		if (display == null)
+			display = System.getenv(DISPLAY_CST);
 		//		
 		//		
 		// // set default jvm to use for testing-->
@@ -153,7 +156,7 @@ public class RunJavaTestClass {
 
 		env.put("PLUGIN_PATH", testEclipsePath + "/plugins");
 		if (display != null) {
-			env.put("DISPLAY", display);
+			env.put(DISPLAY_CST, display);
 		}
 
 		processBuilder.directory(new File(testEclipsePath));
@@ -251,80 +254,6 @@ public class RunJavaTestClass {
 		FileUtils.close(process.getErrorStream());
 	}
 
-	// if (true) { //System.getProperties().get("os.name").startsWith("Windows")
-	// // Windows
-	// ant.exec( executable:execEclipse,
-	// logError:true,
-	// dir:testEclipsePath) {
-	// arg(line:"-application "+application)
-	// arg(line:"-data ""+wsDir+""" )
-	// arg(line:"-testPluginName "+testPluginName+"" )
-	// arg(line:"-className "+classname+"" )
-	// arg(line:"-consoleLog")
-	// arg(line:"-console")
-	// arg(line:"-clean" )
-	// arg(line:"-port 2566")
-	// arg(line:"-loaderpluginname org.eclipse.swtbot.eclipse.junit4.headless")
-	// arg(line:"-testloaderclass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader")
-	// arg(line:"-vmargs" )
-	// arg(line:memArgs)
-	// if (cadseToExecute != null) {
-	// arg(line:"-Dfr.image.adele.addcadse="$cadseToExecute"")
-	// }
-	// arg(line:"-Dfr.image.adele.cadse.test.path="$testPlatformPath"")
-	// arg(line:"-Dorg.eclipse.swtbot.screenshots.dir=""+screenshots+""")
-	// arg(line:"-Dtest.resourcesPath=""+resourcesPath+""")
-	// arg(line:"-Dorg.eclipse.swtbot.keyboard.strategy=org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy")
-	// arg(line:"-Dorg.eclipse.swtbot.search.timeout="30000"")
-	//			
-	// if (debugPort != 0) {
-	// String suspendString = suspend?"y":"n"
-	// arg( line:"-Xdebug -Xrunjdwp:transport=dt_socket,address="+debugPort+",server=y,suspend=$suspendString")
-	// }
-	// env( key:"PLUGIN_PATH", path:""+testEclipsePath+"/plugins")
-	// if (display != null)
-	// env(key:"DISPLAY", value:""+display+"")
-	// }
-	// } else {
-	// // Linux
-	// ant.java(fork:true, dir:testEclipsePath, jvm:jvm,
-	// classname:"org.eclipse.core.launcher.Main",
-	// output:outputFile) {
-	//
-	// classpath() { fileset(dir:""+testEclipsePath+"/plugins", includes:"org.eclipse.equinox.launcher_*.jar") }
-	// arg(line:"-application "+application+"")
-	// arg(line:"-data "+wsDir+"" )
-	// arg(line:"-testPluginName "+testPluginName+"" )
-	// arg(line:"-className "+classname+"" )
-	// arg(line:"-consoleLog")
-	// arg(line:"-console")
-	// arg(line:"-clean" )
-	// arg(line:"-port 2566")
-	// arg(line:"-loaderpluginname org.eclipse.swtbot.eclipse.junit4.headless")
-	// arg(line:"-testloaderclass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader")
-	// //jvmarg(line:"-Dosgi.bundles="org.eclipse.equinox.common@2:start, org.eclipse.update.configurator@3:start,
-	// org.eclipse.core.runtime@4:start, org.apache.felix.ipojo@4:start, fr.imag.adele.ipojo.autostart@4:start"")
-	// jvmarg(line:memArgs)
-	// if (cadseToExecute != null) {
-	// jvmarg(line:"-Dfr.image.adele.addcadse="$cadseToExecute"")
-	// }
-	// jvmarg(line:"-Dfr.image.adele.cadse.test.path="$testPlatformPath"")
-	// jvmarg(line:"-Dorg.eclipse.swtbot.screenshots.dir=""+screenshots+""")
-	// jvmarg(line:"-Dtest.resourcesPath=""+resourcesPath+""")
-	// jvmarg(line:"-Dorg.eclipse.swtbot.keyboard.strategy=org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy")
-	// jvmarg(line:"-Dorg.eclipse.swtbot.search.timeout="30000"")
-	//			
-	//
-	// if (debugPort != 0) {
-	// String suspendString = suspend?"y":"n"
-	// jvmarg( line:"-Xdebug -Xrunjdwp:transport=dt_socket,address="+debugPort+",server=y,suspend=$suspendString")
-	// }
-	// env( key:"PLUGIN_PATH", value:""+testEclipsePath+"/plugins")
-	// if (display != null)
-	// env(key:"DISPLAY", value:""+display+"")
-	// }
-	// }
-
 	public long toLong(String value) {
 		return Long.parseLong(value);
 	}
@@ -344,15 +273,23 @@ public class RunJavaTestClass {
 	public String getTestValue(String key, String testName, String defaultValue) {
 		String realKey = "test." + testName + "." + key;
 		Hashtable<?, ?> p = ant.getProject().getProperties();
-		String ret = (String) p.get(realKey);
-		if (ret == null) {
-			realKey = "test." + key;
+		String ret = null;
+		while(true) {
+			ret = System.getProperty(realKey);
+			if (ret != null) break;
 			ret = (String) p.get(realKey);
-		}
-		if (ret == null) {
+			if (ret != null) break;
+			
+			realKey = "test." + key;
+			ret = System.getProperty(realKey);
+			if (ret != null) break;
+
+			ret = (String) p.get(realKey);
+			if (ret != null) break;
+		
+		
 			ret = defaultValue;
-		}
-		if (ret == null) {
+			if (ret != null) break;
 			return null;
 		}
 		// eval
