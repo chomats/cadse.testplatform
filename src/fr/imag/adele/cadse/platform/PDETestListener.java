@@ -5,12 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import junit.framework.AssertionFailedError;
+import junit.framework.JUnit4TestAdapterCache;
+import junit.framework.JUnit4TestCaseFacade;
+import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.eclipse.jdt.internal.junit.model.ITestRunListener2;
+import org.junit.runner.Description;
 
 /**
  * The listener interface for receiving PDETest events. The class that is interested in processing a PDETest event
@@ -57,7 +61,7 @@ public class PDETestListener implements ITestRunListener2 {
 	private final JUnitTest junitTestSuite;
 
 	/** The current test. */
-	private TestCase currentTest;
+	private Test currentTest;
 
 	public CadseTestPart currentCadseTest;
 
@@ -194,7 +198,7 @@ public class PDETestListener implements ITestRunListener2 {
 	 */
 	public synchronized void testStarted(String testId, String testName) {
 		testsRunCount++;
-		currentTest = new WrapperTestCase(testName);
+		currentTest = JUnit4TestAdapterCache.getDefault().asTest(Description.createSuiteDescription(testName));
 		getXMLJUnitResultFormatter().startTest(currentTest);
 		printMessage("Test n°" + count() + " started : " + testName);
 	}
@@ -291,36 +295,36 @@ public class PDETestListener implements ITestRunListener2 {
 		return testRunEnded;
 	}
 
-	/**
-	 * The Class WrapperTestCase.
-	 */
-	class WrapperTestCase extends TestCase {
-
-		/**
-		 * Instantiates a new wrapper test case.
-		 * 
-		 * @param name
-		 *            the name
-		 */
-		public WrapperTestCase(String name) {
-			super(name);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see junit.framework.TestCase#countTestCases()
-		 */
-		@Override
-		public int countTestCases() {
-			return 1;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see junit.framework.TestCase#run(junit.framework.TestResult)
-		 */
-		@Override
-		public void run(TestResult result) {
-		}
-	}
+//	/**
+//	 * The Class WrapperTestCase.
+//	 */
+//	class WrapperTestCase extends TestCase {
+//
+//		/**
+//		 * Instantiates a new wrapper test case.
+//		 * 
+//		 * @param name
+//		 *            the name
+//		 */
+//		public WrapperTestCase(String name) {
+//			super(name);
+//		}
+//
+//		/*
+//		 * (non-Javadoc)
+//		 * @see junit.framework.TestCase#countTestCases()
+//		 */
+//		@Override
+//		public int countTestCases() {
+//			return 1;
+//		}
+//
+//		/*
+//		 * (non-Javadoc)
+//		 * @see junit.framework.TestCase#run(junit.framework.TestResult)
+//		 */
+//		@Override
+//		public void run(TestResult result) {
+//		}
+//	}
 }
