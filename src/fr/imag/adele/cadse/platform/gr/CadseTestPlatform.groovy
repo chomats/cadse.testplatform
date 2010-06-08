@@ -42,7 +42,7 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 		System.out.println("");
 		
 		ant.delete(dir : testReport);
-		buildManager = new BuildManager(ant, testPlatformPath)
+		buildManager = new BuildManager(ant, testPlatformPath, testEclipsePath)
 		
 	}
 	
