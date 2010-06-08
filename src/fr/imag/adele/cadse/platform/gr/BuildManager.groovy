@@ -24,11 +24,11 @@ public class BuildManager implements IBuildManager{
 	
 	List<BundleBuildDescription> bundlestoCompile = new ArrayList<BundleBuildDescription>();
 	
-	public BuildManager(AntBuilder ant, String platformPath) {
+	public BuildManager(AntBuilder ant, String platformPath, String eclipsepath) {
 		this.ant =  ant;
 		
 		testPlatformPath = platformPath
-		testEclipsePath  = "$testPlatformPath/eclipse"
+		testEclipsePath  = eclipsepath
 		def localDebugFlag = ant.project.properties.get('build.debug')
 		debugFlag = localDebugFlag == true || localDebugFlag == 'true'
 	}
