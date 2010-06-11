@@ -77,11 +77,11 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.groovy.maven</groupId>
 				<artifactId>gmaven-plugin</artifactId>
+				<version>1.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -90,7 +90,7 @@
 						<configuration>
 							<sources>
 								<fileset>
-									<directory>${pom.basedir}/src</directory>
+									<directory>${pom.basedir}/src/main/java</directory>
 									<includes>
 										<include>**/*.groovy</include>
 									</includes>
