@@ -120,6 +120,9 @@ public class RunJavaTestClass {
 
 		if (display == null)
 			display = System.getenv(DISPLAY_CST);
+		
+		boolean cobertura = toBoolean(getTestValue("cobertura", testName, "false"));
+		
 		//		
 		//		
 		// // set default jvm to use for testing-->
@@ -143,6 +146,10 @@ public class RunJavaTestClass {
 				"-Dorg.eclipse.swtbot.search.timeout='30000'");
 		if (cadseToExecute != null) {
 			processBuilder.command().add("-Dfr.image.adele.addcadse=" + cadseToExecute);
+		}
+		if (cobertura) {
+			String coberturaOutput = converToPath(getTestValue("coberturaOutput", testName, testReport + "/" + testName + ".cobertura.ser"));
+			processBuilder.command().add("-Dnet.sourceforge.cobertura.datafile=" + coberturaOutput);
 		}
 
 		if (debugPort != 0) {
