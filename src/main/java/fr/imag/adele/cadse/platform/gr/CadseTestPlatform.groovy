@@ -64,4 +64,19 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 
 		ant.echo(message:"Running ${runJavaTestClass.testName}. Result file: ${runJavaTestClass.testOutput}");
 	}
+	
+	protected void finishTest() {
+		ant.'cobertura-merge'(datafile:"${testReport}/cobertura.ser") {
+	    	fileset( dir:"${testReport}") {
+	    		include(name:'*.cobertura.ser')
+	    		exclude(name:'cobertura.ser')
+	    	}
+		}
+		ant.delete() {
+			fileset( dir:"${testReport}") {
+	    		include(name:'*.cobertura.ser')
+	    		exclude(name:'cobertura.ser')
+	    	}
+		}
+	}
 }
