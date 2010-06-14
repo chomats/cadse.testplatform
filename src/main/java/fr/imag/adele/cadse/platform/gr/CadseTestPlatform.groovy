@@ -66,6 +66,8 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 	}
 	
 	protected void finishTest() {
+		if (!"true".equals(ant.project.properties.'test.cobertura'))
+			return;
 		ant.'cobertura-merge'(datafile:"${testReport}/cobertura.ser") {
 	    	fileset( dir:"${testReport}") {
 	    		include(name:'*.cobertura.ser')
