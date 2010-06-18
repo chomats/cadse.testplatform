@@ -73,7 +73,9 @@ public class BuildManager implements IBuildManager{
 				fileset(dir:"${testEclipsePath}/${plugins}/", includes:"${name}_*.jar")
 			}
 			ant.copy(todir:"${testEclipsePath}/${plugins}", overwrite:true)  {
-				fileset(dir:"${pathWs}/$name/target", includes:"${name}_*.jar")
+				fileset(dir:"${pathWs}/$name/target", 
+						includes:"${name}*.jar", 
+						excludes:"${name}_*-sources.jar")
 			}
 			return false;
 		} else
