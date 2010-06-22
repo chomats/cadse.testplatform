@@ -1,5 +1,6 @@
 package fr.imag.adele.cadse.platform;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,21 @@ public class CadseTestPart {
 		}
 
 		addBundle(new BundleBuildDescription(path, name, defaultSource));
+	}
+	
+	public void addBundle(String prefix, String defaultSource) {
+		String path = run.getTestPlatformPath() + "/test-ws";
+		File dir = new File(path);
+		File[] files = dir.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			File f = files[i];
+			if (!f.isDirectory() || !f.exists()) continue;
+			String n = f.getName();
+			if (!n.startsWith(prefix))
+				continue;
+			addBundle(new BundleBuildDescription(path, n, defaultSource));
+		}
+		
 	}
 
 	public void deleteBundle(String name) {
