@@ -25,7 +25,7 @@ public class HiddenPageUI extends CadsegTestCase {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
-		tp.addBundle( "Model.Workspace.CADSE_UI_", "src-gen")
+		tp.setExtraBundleClosure { addBundle( "Model.Workspace.CADSE_UI_", "src-gen") }
 		
 	}
 	

@@ -13,6 +13,7 @@ public class CadseTestPart {
 	public String testPluginName;
 	public String classname;
 	public Closure c;
+	public Closure e;
 	public int status = -1; // 0 SUCESS, 1: FAILED; -1 NOT EXECUTED
 	public long timestamp = 0;
 
@@ -53,6 +54,7 @@ public class CadseTestPart {
 		String path = run.getTestPlatformPath() + "/test-ws";
 		File dir = new File(path);
 		File[] files = dir.listFiles();
+		if (files == null) return;
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
 			if (!f.isDirectory() || !f.exists()) continue;
@@ -91,6 +93,19 @@ public class CadseTestPart {
 
 	public void report(RunJavaTestClass runJavaTestClass,
 			AbstractCadseTestPlatform run2, boolean failed) {
+	}
+	
+	public void setExtraBundleClosure(Closure e) {
+		this.e = e;
+	}
+	
+
+	public void addExtraBundle() {
+		if (e != null) {
+			e.setDelegate(this);
+			e.call();
+		}
+			
 	}
 
 }
