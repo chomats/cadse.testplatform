@@ -6,13 +6,9 @@ import java.io.FileOutputStream;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.JUnit4TestAdapterCache;
-import junit.framework.JUnit4TestCaseFacade;
 import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
 
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
-import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.eclipse.jdt.internal.junit.model.ITestRunListener2;
 import org.junit.runner.Description;
 
