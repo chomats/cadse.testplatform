@@ -1,3 +1,5 @@
+package fr.imag.adele.cadse.testplatform.tests_basictests
+
 import fr.imag.adele.cadse.platform.CadseTest;
 
 import fr.imag.adele.cadse.platform.*
