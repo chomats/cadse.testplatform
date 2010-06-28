@@ -83,6 +83,6 @@ public class CadseTestPlatform extends AbstractCadseTestPlatform {
 	}
 	
 	protected RunJavaTestClass createRunner(CadseTestPart tp) {
-		return new RunEclipseTestClass(this, tp);
+		return new RunJavaFelixTestClass(this, tp);
 	}
 }

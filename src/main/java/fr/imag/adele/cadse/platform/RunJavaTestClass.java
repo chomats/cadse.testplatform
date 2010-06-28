@@ -10,7 +10,10 @@ import groovy.util.AntBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
@@ -19,9 +22,9 @@ import org.apache.tools.ant.taskdefs.ExecuteWatchdog;
 import org.apache.tools.ant.taskdefs.PumpStreamHandler;
 import org.apache.tools.ant.util.FileUtils;
 
-public class RunJavaTestClass {
+abstract public class RunJavaTestClass {
 
-	private static final String DISPLAY_CST = "DISPLAY";
+	protected static final String DISPLAY_CST = "DISPLAY";
 	public String testPlatformPath;
 	public String wsTest;
 	public String testEclipsePath;
@@ -58,7 +61,19 @@ public class RunJavaTestClass {
 
 	AbstractCadseTestPlatform run;
 	CadseTestPart tp;
-
+	protected ProcessBuilder processBuilder;
+	protected List<String> params = new ArrayList<String>();
+	protected List<String> paramsJVM = new ArrayList<String>();
+	protected String exec;
+	
+	
+	public void addParam(String ...param) {
+		params.addAll(Arrays.asList(param));
+	}
+	
+	public void addJvmParam(String ...param) {
+		paramsJVM.addAll(Arrays.asList(param));
+	}
 	public RunJavaTestClass(AbstractCadseTestPlatform run, CadseTestPart tp) {
 		this.testProperties = tp.testProperties;
 		this.testName = tp.testName;
@@ -110,12 +125,7 @@ public class RunJavaTestClass {
 		screenshots = converToPath(getTestValue("screenshots", testName, testReport + "/" + testName + "/screenshots/"));
 		memArgs = getTestValue("mem.args", testName, "-XX:MaxPermSize=128m -Xms256m -Xmx1024m");
 		wsDir = converToPath(testPlatformPath + "/" + wsDirFolder);
-		if (((String) System.getProperties().get("os.name")).startsWith("Windows")) {
-			execEclipse = converToPath(getTestValue("execEclipse", testName, testEclipsePath + "/eclipse.exe"));
-		}
-		else {
-			execEclipse = converToPath(getTestValue("execEclipse", testName, testEclipsePath + "/eclipse"));
-		}
+		
 		display = getTestValue("display", testName, null);
 
 		if (display == null)
@@ -123,48 +133,42 @@ public class RunJavaTestClass {
 		
 		boolean cobertura = toBoolean(getTestValue("cobertura", testName, "false"));
 		
-		//		
-		//		
-		// // set default jvm to use for testing-->
-		// jvm = getTestValue("jvm", testName, System.getProperty("java.home").replace ("\\","/")+"/bin/java");
-
 		if (c != null) {
 			c.setDelegate(this);
 			c.call();
 		}
 		run.initRunJavaTest(this);
 
-		// /home/chomats/eclipse-apps/platform-test-galileo/test-ws
-		ProcessBuilder processBuilder = new ProcessBuilder();
-		processBuilder.command(execEclipse, "-application", application, "-data", wsDir, "-testPluginName",
-				testPluginName, "-className", classname, "-consoleLog", "-console", "-clean", "-port", Integer
-						.toString(junitPort), "-loaderpluginname", loaderpluginname, "-testloaderclass",
-				"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader", "-vmargs",
-				"-Dfr.image.adele.cadse.test.path=" + testPlatformPath, "-Dorg.eclipse.swtbot.screenshots.dir="
-						+ screenshots, "-Dtest.resourcesPath=" + resourcesPath,
-				"-Dorg.eclipse.swtbot.keyboard.strategy=org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy",
-				"-Dorg.eclipse.swtbot.search.timeout='30000'");
+	    processBuilder = new ProcessBuilder();
+				
+		addParam("-testPluginName", testPluginName, 
+				"-className", classname, 
+				"-port", Integer.toString(junitPort), 
+				"-loaderpluginname", loaderpluginname, 
+				"-testloaderclass", "org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader");
+		
 		if (cadseToExecute != null) {
-			processBuilder.command().add("-Dfr.image.adele.addcadse=" + cadseToExecute);
+			addJvmParam("-Dfr.image.adele.addcadse=" + cadseToExecute);
 		}
 		if (cobertura) {
 			String coberturaOutput = converToPath(getTestValue("coberturaOutput", testName, testReport + "/" + testName + ".cobertura.ser"));
-			processBuilder.command().add("-Dnet.sourceforge.cobertura.datafile=" + coberturaOutput);
+			addJvmParam("-Dnet.sourceforge.cobertura.datafile=" + coberturaOutput);
 		}
 
 		if (debugPort != 0) {
 			String suspendString = suspend ? "y" : "n";
-			processBuilder.command().add("-Xdebug");
-			processBuilder.command().add(
+			addJvmParam("-Xdebug");
+			addJvmParam(
 					"-Xrunjdwp:transport=dt_socket,address=" + debugPort + ",server=y,suspend=" + suspendString);
 		}
 
 		Map<String, String> env = processBuilder.environment();
 
-		env.put("PLUGIN_PATH", testEclipsePath + "/plugins");
-		if (display != null) {
-			env.put(DISPLAY_CST, display);
-		}
+		addExtraParam();
+		
+		initEnv(env);
+		
+		constructCmdLine();
 
 		processBuilder.directory(new File(testEclipsePath));
 		processBuilder.redirectErrorStream(redirectErrorStream);
@@ -247,6 +251,24 @@ public class RunJavaTestClass {
 			return true;
 		}
 		return run.cadseCollector.failed();
+	}
+
+	protected void addExtraParam() {
+	}
+
+	protected void initEnv(Map<String, String> env) {
+	}
+
+
+	protected void constructCmdLine() {
+		processBuilder.command().add(exec);
+		for (String p : paramsJVM) {
+			processBuilder.command().add(p);
+		}
+		
+		for (String p : params) {
+			processBuilder.command().add(p);
+		}
 	}
 
 	/**
