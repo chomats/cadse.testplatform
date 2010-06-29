@@ -85,7 +85,7 @@ public class BuildManager implements IBuildManager{
 	
 	boolean deployMavenBundle() {
 		if (!initMaven) {
-			ant.taskdef(name:"dependencies", classname:"org.apache.maven.artifact.ant.DependenciesTask")
+			ant.taskdef(name:"dependencies", classname:"fr.imag.adele.cadse.platform.DependenciesTask")
 			initMaven = true;
 		}
 		

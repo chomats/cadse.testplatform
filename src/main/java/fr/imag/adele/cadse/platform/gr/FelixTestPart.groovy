@@ -33,8 +33,20 @@ public class FelixTestPart extends CadseTestPart {
 		rjftc.setClassPath(fs)
 		run.ant.delete(dir:"$felixHome/$testName");
 		
-		rjftc.addParam((String)"--bundles-dir", (String)"$felixHome/dropins");
+		//String configFelix = run.ant.project.properties.get('felix.config.properties');
+		//if (configFelix != null)
+		//	rjftc.addJvmParam((String) "-Dfelix.config.properties=$configFelix");
+		for (String key in run.ant.project.properties.keySet() )
+		   {
+			   if (key.startsWith("felix.") || key.startsWith("org.osgi.framework."))
+			   {
+				   String value = run.ant.project.properties.get(key)
+				   rjftc.addJvmParam((String) "-D${key}=${value}");
+			   }
+		   }
+		   
 		rjftc.addParam((String)"--bundles-dir", (String)"$felixHome/bundles");
+		rjftc.addParam((String)"--bundles-dir", (String)"$felixHome/dropins");
 		rjftc.addParam((String)"--cache-dir" , (String)"$felixHome/$testName");
 		return rjftc;
 	}
