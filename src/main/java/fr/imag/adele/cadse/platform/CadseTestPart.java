@@ -7,7 +7,7 @@ import java.util.List;
 import groovy.lang.Closure;
 
 public class CadseTestPart {
-	public ICadseTestPlatform run;
+	public AbstractCadseTestPlatform run;
 	public String testProperties;
 	public String testName;
 	public String testPluginName;
@@ -29,7 +29,7 @@ public class CadseTestPart {
 		this.c = c;
 	}
 
-	public void setCadseTestPlatform(ICadseTestPlatform lRun) {
+	public void setCadseTestPlatform(AbstractCadseTestPlatform lRun) {
 		run = lRun;
 	}
 
@@ -106,6 +106,10 @@ public class CadseTestPart {
 			e.call();
 		}
 			
+	}
+
+	public RunJavaTestClass createRunner() {
+		return new RunEclipseTestClass(run, this);
 	}
 
 }
