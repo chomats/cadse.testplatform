@@ -22,7 +22,7 @@ public class BuildManager implements IBuildManager{
 	
 	String plugins = "dropins" // plugins
 	
-	List<BundleBuildDescription> bundlestoCompile = new ArrayList<BundleBuildDescription>();
+	List<BundleDescription> bundlestoCompile = new ArrayList<BundleDescription>();
 	
 	public BuildManager(AntBuilder ant, String platformPath, String eclipsepath) {
 		this.ant =  ant;
@@ -293,21 +293,20 @@ public class BuildManager implements IBuildManager{
 		}
 	}
 	
-	public void addBundle(BundleBuildDescription b) {
-		for(BundleBuildDescription findB : bundlestoCompile) {
+	public void addBundle(BundleDescription b) {
+		for(BundleDescription findB : bundlestoCompile) {
 			if (findB.equals(b)) return;
 		}
 		bundlestoCompile.add( b);
 	}
 	
 	@Override
-	public List<BundleBuildDescription> getBundlestoCompile() {
+	public List<BundleDescription> getBundlestoCompile() {
 		return bundlestoCompile;
 	}
 	
 	@Override
-	public void setBundlestoCompile(
-	List<BundleBuildDescription> bundlestoCompile) {
+	public void setBundlestoCompile(List<BundleDescription> bundlestoCompile) {
 		this.bundlestoCompile = bundlestoCompile;
 	}
 }
