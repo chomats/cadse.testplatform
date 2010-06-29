@@ -85,15 +85,14 @@ public class BuildManager implements IBuildManager{
 	
 	boolean deployMavenBundle(MavenBundleDescription mbd) {
 		if (!initMaven) {
-			ant.typedef( resource:"org/apache/maven/artifact/ant/antlib.xml", 
-					 uri:"antlib:org.apache.maven.artifact.ant" )
+			ant.taskdef(name:"dependencies", classname:"org.apache.maven.artifact.ant.DependenciesTask")
 			initMaven = true;
 		}
 		String gId = mbd.getgId();
 		String aId = mbd.getaId();
 		String vId = mbd.getvId();
 		
-		ant.'artifact:dependencies'( pathId:"dependency.classpath") {
+		ant.dependencies( pathId:"dependency.fileset") {
   			dependency(groupId:"$gId", artifactId:"$aId", version:"$vId", scope:"compile")
   		}
   		ant.copy(todir:"${testEclipsePath}/${plugins}", overwrite:true)  {
