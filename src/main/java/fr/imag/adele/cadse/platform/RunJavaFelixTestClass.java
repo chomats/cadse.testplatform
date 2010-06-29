@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.resources.FileResource;
 import org.apache.tools.ant.util.JavaEnvUtils;
 
 public class RunJavaFelixTestClass extends RunJavaTestClass {
@@ -57,8 +58,8 @@ public class RunJavaFelixTestClass extends RunJavaTestClass {
 	public void setClassPath(FileSet fs) {
 		StringBuilder sb = new StringBuilder();
 		for (Iterator iterator = fs.iterator(); iterator.hasNext();) {
-			String f = (String) iterator.next();
-			sb.append(f);
+			FileResource f = (FileResource) iterator.next();
+			sb.append(f.getFile().getPath());
 			sb.append(":");
 		}
 		sb.setLength(sb.length()-1);

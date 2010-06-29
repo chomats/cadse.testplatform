@@ -15,7 +15,7 @@ public class MavenBundleDescription extends BundleDescription {
 
 	@Override
 	public boolean build(IBuildManager bm) {
-		return bm.deployMavenBundle(this);
+		return false;
 	}
 
 	public String getvId() {
