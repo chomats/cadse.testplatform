@@ -17,7 +17,7 @@ public class CadseTestPart {
 	public int status = -1; // 0 SUCESS, 1: FAILED; -1 NOT EXECUTED
 	public long timestamp = 0;
 
-	public List<BundleBuildDescription> bundlestoCompile = new ArrayList<BundleBuildDescription>();
+	public List<BundleDescription> bundlestoCompile = new ArrayList<BundleDescription>();
 	public List<String> bundlestoDelete = new ArrayList<String>();
 	public List<CadseTestMethod> tests = new ArrayList<CadseTestMethod>();
 
@@ -33,8 +33,8 @@ public class CadseTestPart {
 		run = lRun;
 	}
 
-	public void addBundle(BundleBuildDescription b) {
-		for (BundleBuildDescription findB : bundlestoCompile) {
+	public void addBundle(BundleDescription b) {
+		for (BundleDescription findB : bundlestoCompile) {
 			if (findB.equals(b)) {
 				return;
 			}
@@ -47,7 +47,7 @@ public class CadseTestPart {
 			path = run.getTestPlatformPath() + "/test-ws";
 		}
 
-		addBundle(new BundleBuildDescription(path, name, defaultSource));
+		addBundle(new BuildBundleDescription(path, name, defaultSource));
 	}
 	
 	public void addBundle(String prefix, String defaultSource) {
@@ -61,7 +61,7 @@ public class CadseTestPart {
 			String n = f.getName();
 			if (!n.startsWith(prefix))
 				continue;
-			addBundle(new BundleBuildDescription(path, n, defaultSource));
+			addBundle(new BuildBundleDescription(path, n, defaultSource));
 		}
 		
 	}

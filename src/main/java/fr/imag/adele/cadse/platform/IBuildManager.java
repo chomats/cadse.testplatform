@@ -6,10 +6,13 @@ public interface IBuildManager {
 
 	boolean deleteBundle(String b);
 
-	void setBundlestoCompile(List<BundleBuildDescription> bundlestoCompile);
+	void setBundlestoCompile(List<BundleDescription> bundlestoCompile);
 
-	List<BundleBuildDescription> getBundlestoCompile();
+	List<BundleDescription> getBundlestoCompile();
 
 	boolean createBundle(String path, String name, String defaultSource);
-	public void addBundle(BundleBuildDescription b);
+	
+	boolean deployMavenBundle(MavenBundleDescription mbd);
+	
+	public void addBundle(BundleDescription b);
 }
