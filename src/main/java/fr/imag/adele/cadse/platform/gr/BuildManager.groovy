@@ -81,6 +81,29 @@ public class BuildManager implements IBuildManager{
 		} else
 			return createBundle(pathWs, name, srcFolder, true)
 	}
+	boolean initMaven = false;
+	
+	boolean deployMavenBundle(MavenBundleDescription mbd) {
+		if (!initMaven) {
+			ant.path( id : "maven-ant-tasks.classpath",  path:"lib/maven-ant-tasks-2.1.0.jar")
+			ant.typedef( resource:"org/apache/maven/artifact/ant/antlib.xml", 
+					 uri:"antlib:org.apache.maven.artifact.ant", classpathref,"maven-ant-tasks.classpath" )
+			initMaven = true;
+		}
+		String gId = mbd.getgid();
+		String aId = mbd.getaid();
+		String vId = mbd.getvid();
+		
+		ant.'artifact:dependencies'( pathId:"dependency.classpath") {
+  			dependency(groupId:"$gId", artifactId:"$aId", version:"$vId", scope:"compile")
+  		}
+  		ant.copy(todir:"${testEclipsePath}/${plugins}", overwrite:true)  {
+			fileset(refid:"dependency.fileset")
+			mapper(type:"flatten")
+		}
+		return false;
+	}
+	
 	
 	String getVersion(String manifestfile) {
 		Manifest mf = new Manifest(new FileInputStream(manifestfile));

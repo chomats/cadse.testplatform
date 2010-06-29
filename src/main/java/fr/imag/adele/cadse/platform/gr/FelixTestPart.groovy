@@ -24,7 +24,7 @@ public class FelixTestPart extends CadseTestPart {
 			maxMem = "1024m"
 		String felixClassName = ant.project.properties.get('felix.mainClass')
 		if (felixClassName == null)
-			throw new RuntimeException("Cannot found felix home");
+			felixClassName = "fr.imag.adele.felix.junit.runtime.JunitMain";
 		
 		RunJavaFelixTestClass rjftc = new RunJavaFelixTestClass(run, this);
 		rjftc.setClassName(felixClassName);
@@ -38,4 +38,6 @@ public class FelixTestPart extends CadseTestPart {
 		rjftc.addParam("--cache-dir" , "$felixHome/$testName");
 		return rjftc;
 	}
+	
+	
 }
