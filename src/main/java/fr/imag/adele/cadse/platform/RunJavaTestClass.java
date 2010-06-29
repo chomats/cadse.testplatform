@@ -152,7 +152,7 @@ abstract public class RunJavaTestClass {
 				"-testloaderclass", "org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader");
 		
 		if (cadseToExecute != null) {
-			addJvmParam("-Dfr.image.adele.addcadse=" + cadseToExecute);
+			addJvmParam("-Dfr.imag.adele.cadse.execute=" + cadseToExecute);
 		}
 		if (cobertura) {
 			String coberturaOutput = converToPath(getTestValue("coberturaOutput", testName, testReport + "/" + testName + ".cobertura.ser"));

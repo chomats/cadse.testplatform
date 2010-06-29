@@ -39,6 +39,11 @@ public class RunJavaFelixTestClass extends RunJavaTestClass {
 		for (String p : params) {
 			processBuilder.command().add(p);
 		}
+		for (String c : processBuilder.command()) {
+			System.out.print(c);
+			System.out.print(" ");
+		}
+		System.out.println();
 	}
 
 	
