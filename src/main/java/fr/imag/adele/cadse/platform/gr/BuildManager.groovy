@@ -92,7 +92,7 @@ public class BuildManager implements IBuildManager{
 		String aId = mbd.getaId();
 		String vId = mbd.getvId();
 		
-		ant.dependencies( pathId:"dependency.fileset") {
+		ant.dependencies( filesetId:"dependency.fileset") {
   			dependency(groupId:"$gId", artifactId:"$aId", version:"$vId", scope:"compile")
   		}
   		ant.copy(todir:"${testEclipsePath}/${plugins}", overwrite:true)  {
