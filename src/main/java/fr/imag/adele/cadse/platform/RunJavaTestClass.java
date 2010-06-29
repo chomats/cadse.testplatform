@@ -74,6 +74,10 @@ abstract public class RunJavaTestClass {
 	public void addJvmParam(String ...param) {
 		paramsJVM.addAll(Arrays.asList(param));
 	}
+	
+	public void addJvmParam(String param) {
+		paramsJVM.add(param);
+	}
 	public RunJavaTestClass(AbstractCadseTestPlatform run, CadseTestPart tp) {
 		this.testProperties = tp.testProperties;
 		this.testName = tp.testName;
