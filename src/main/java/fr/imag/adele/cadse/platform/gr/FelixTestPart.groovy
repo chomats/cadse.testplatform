@@ -15,27 +15,27 @@ public class FelixTestPart extends CadseTestPart {
 	}
 	
 	public RunJavaTestClass createRunner() {
-		String felixHome = ant.project.properties.get('felix.home');
+		String felixHome = run.ant.project.properties.get('felix.home');
 		if (felixHome == null)
 			throw new RuntimeException("Cannot found felix home");
 		
-		String maxMem = ant.project.properties.get('felix.mx')
+		String maxMem = run.ant.project.properties.get('felix.mx')
 		if (maxMem == null)
 			maxMem = "1024m"
-		String felixClassName = ant.project.properties.get('felix.mainClass')
+		String felixClassName = run.ant.project.properties.get('felix.mainClass')
 		if (felixClassName == null)
 			felixClassName = "fr.imag.adele.felix.junit.runtime.JunitMain";
 		
 		RunJavaFelixTestClass rjftc = new RunJavaFelixTestClass(run, this);
 		rjftc.setClassName(felixClassName);
 		rjftc.setBasedir(felixHome);
-		FileSet fs = ant.fileset(dir:"${mavenHome}/lib") { include( name:'*.jar') }
+		FileSet fs = run.ant.fileset(dir:"${felixHome}/lib") { include( name:'*.jar') }
 		rjftc.setClassPath(fs)
-		ant.delete(dir:"$felixHome/$testName");
+		run.ant.delete(dir:"$felixHome/$testName");
 		
-		rjftc.addParam("--bundles-dir", "$felixHome/dropins");
-		rjftc.addParam("--bundles-dir", "$felixHome/bundles");
-		rjftc.addParam("--cache-dir" , "$felixHome/$testName");
+		rjftc.addParam((String)"--bundles-dir", (String)"$felixHome/dropins");
+		rjftc.addParam((String)"--bundles-dir", (String)"$felixHome/bundles");
+		rjftc.addParam((String)"--cache-dir" , (String)"$felixHome/$testName");
 		return rjftc;
 	}
 	

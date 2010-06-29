@@ -12,7 +12,7 @@ public interface IBuildManager {
 
 	boolean createBundle(String path, String name, String defaultSource);
 	
-	boolean deployMavenBundle(MavenBundleDescription mbd);
+	boolean deployMavenBundle();
 	
 	public void addBundle(BundleDescription b);
 }
