@@ -92,7 +92,7 @@ public class BuildManager implements IBuildManager{
 		ant.mkdir(dir:"${testEclipsePath}/${plugins}")
 		ant.dependencies( filesetId:"dependency.fileset") {
   			for(BundleDescription mbd : bundlestoCompile) {
-				  if (!mbd instanceof MavenBundleDescription) continue;
+				  if (!(mbd instanceof MavenBundleDescription)) continue;
 				  String gId = mbd.getgId();
 				  String aId = mbd.getaId();
 				  String vId = mbd.getvId();
