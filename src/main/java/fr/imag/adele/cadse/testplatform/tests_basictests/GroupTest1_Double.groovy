@@ -16,11 +16,11 @@ public class GroupTest1_Double extends CadsegTestCase {
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
 		
 		/* TEST */
-		CadseTestPart tp = addTestPart(null, 'Group_basic_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Double_ts_CADSEg')
+		CadseTestPart tp = addTestPart(null, 'Group_Test1_Double_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Double_ts_CADSEg')
 		tp.deleteBundle("Model.Workspace.CADSEgroup_test1Double")
 		
 		
-		tp = addTestPart(null, 'Group_basic_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Double_ts_execution') {
+		tp = addTestPart(null, 'Group_Test1_Double_Execution','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Double_ts_execution') {
 			delegate.wsDir = "${run.testPlatformPath}/test-ws-2"
 			run.ant.mkdir(dir: delegate.wsDir)
 		}
