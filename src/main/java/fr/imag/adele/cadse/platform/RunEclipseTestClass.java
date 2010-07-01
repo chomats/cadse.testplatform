@@ -22,8 +22,6 @@ public class RunEclipseTestClass extends RunJavaTestClass {
 		addParam("-consoleLog", "-console", "-clean");
 		
 		addJvmParam(
-				"-Dfr.image.adele.cadse.test.path=" + testPlatformPath, 
-				"-Dtest.resourcesPath=" + resourcesPath,
 				"-Dorg.eclipse.swtbot.screenshots.dir="
 						+ screenshots, 
 				"-Dorg.eclipse.swtbot.keyboard.strategy=org.eclipse.swtbot.swt.finder.keyboard.SWTKeyboardStrategy",
