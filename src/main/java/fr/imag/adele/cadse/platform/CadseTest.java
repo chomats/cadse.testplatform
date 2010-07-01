@@ -29,6 +29,14 @@ public abstract class CadseTest {
 		return tp;
 	}
 	
+	public CadseTestPart addFelixTestPart(String testProperties, String testName, String testPluginName, String classname) {
+		return addFelixTestPart(testProperties, testName, testPluginName, classname, null);
+	}
+	
+	public CadseTestPart addFelixTestPart(String testProperties, String testName, String testPluginName, String classname, Closure c) {
+		return null;
+	}
+	
 	public void init() {
 	}
 	

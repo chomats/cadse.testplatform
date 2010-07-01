@@ -144,7 +144,10 @@ abstract public class RunJavaTestClass {
 		run.initRunJavaTest(this);
 
 	    processBuilder = new ProcessBuilder();
-				
+		
+	    addJvmParam("-Dfr.image.adele.cadse.test.path=" + testPlatformPath, 
+				"-Dtest.resourcesPath=" + resourcesPath);
+	    
 		addParam("-testPluginName", testPluginName, 
 				"-className", classname, 
 				"-port", Integer.toString(junitPort), 
