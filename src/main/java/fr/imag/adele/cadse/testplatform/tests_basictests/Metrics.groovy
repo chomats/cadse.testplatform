@@ -8,13 +8,7 @@ import fr.imag.adele.cadse.platform.*
 public class Metrics extends CadseTest {
 	
 	public void init() {
-		/* Libraries */
-		run.addBundle(run.wsTest, 'fr.imag.adele.graphictests', 'src/main/java')
-		run.addBundle(run.wsTest, 'fr.imag.adele.graphictests.cadse', 'src/main/java')
-		run.addBundle(run.wsTest, 'org.eclipse.swtbot.swt.finder.keyboard.fr', 'src')
-		
-		/* Bundle to be created */
-		run.addBundle(run.wsTest, 'fr.imag.adele.cadse.test.basictests', 'src')
+		run.addBundelInM2("fr.imag.adele.cadse.test.basictests", "fr.imag.adele.cadse", "fr.imag.adele.cadse.test.basictests", "2.3.0-SNAPSHOT")
 		
 		CadseTestPart tp;
 		tp = addTestPart(null, 'Metrics_Integer','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.metrics.Metrics_Integer');
