@@ -7,13 +7,7 @@ import fr.imag.adele.cadse.platform.*
 public class GroupTest1_Enum extends CadsegTestCase {
 	
 	public void init() {
-		/* Libraries */
-		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
-		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
-		
-		/* Bundle to be created */
-		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
+		run.addBundelInM2("fr.imag.adele.cadse.test.basictests", "fr.imag.adele.cadse", "fr.imag.adele.cadse.test.basictests", "2.3.0-SNAPSHOT")
 		
 		/* TEST */
 		CadseTestPart tp = addTestPart(null, 'Group_Test1_Enum_CADSEg','fr.imag.adele.cadse.test.basictests','fr.imag.adele.cadse.test.basictests.group.test1.Test1_Enum_ts_CADSEg')

@@ -7,13 +7,10 @@ import fr.imag.adele.cadse.platform.*
 public class HiddenPageUI extends CadsegTestCase {
 	
 	public void init() {
-		/* Libraries */
-		run.addBundle(run.wsTest, "fr.imag.adele.graphictests", "src/main/java")
-		run.addBundle(run.wsTest, "fr.imag.adele.graphictests.cadse", "src/main/java")
-		run.addBundle(run.wsTest, "org.eclipse.swtbot.swt.finder.keyboard.fr", "src")
 		
+		run.addBundelInM2("fr.imag.adele.cadse.test.basictests", "fr.imag.adele.cadse", "fr.imag.adele.cadse.test.basictests", "2.3.0-SNAPSHOT")		
+
 		/* Bundle to be created */
-		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.basictests", "src")
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.generatorManager", "src")
 		run.addBundle(run.wsTest, "fr.imag.adele.cadse.test.ui", "src")
 		
