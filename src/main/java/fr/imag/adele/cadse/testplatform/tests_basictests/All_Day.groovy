@@ -11,6 +11,7 @@ public class All_Day extends CadseTest {
 	
 	public static void main(String[] args) {
 		main(
+		
 		// ================ //
 		//    First tests   //
 		// ================ //
@@ -21,6 +22,12 @@ public class All_Day extends CadseTest {
 		new IsAbstract(),
 		new Link(),
 		new Root(),
+		
+		// ================ //
+		//       Misc       //
+		// ================ //
+		
+		new Bug1()
 		
 		// ================ //
 		// Basic Properties //
@@ -54,11 +61,6 @@ public class All_Day extends CadseTest {
 		//new GroupTest3_Integer(),
 		//new GroupTest3_Long(),
 		//new GroupTest3_String(),
-		
-		// ================ //
-		//       Misc       //
-		// ================ //
-		
-		new Bug1())
+		)
 	}
 }
