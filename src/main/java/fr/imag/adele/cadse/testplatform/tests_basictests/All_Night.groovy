@@ -20,6 +20,12 @@ public class All_Night extends CadseTest {
 		new Root(),
 		
 		// ================ //
+		//       Misc       //
+		// ================ //
+		
+		new Bug1(),
+		
+		// ================ //
 		// Basic Properties //
 		// ================ //
 		
@@ -48,14 +54,9 @@ public class All_Night extends CadseTest {
 		//new GroupTest3_Boolean(),
 		//new GroupTest3_Double(),
 		//new GroupTest3_Enum(),
-		new GroupTest3_Integer(),
+		new GroupTest3_Integer()
 		//new GroupTest3_Long(),
 		//new GroupTest3_String(),
-		
-		// ================ //
-		//       Misc       //
-		// ================ //
-		
-		new Bug1())
+		)
 	}
 }
