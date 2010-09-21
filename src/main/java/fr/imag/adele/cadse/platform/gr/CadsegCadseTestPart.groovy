@@ -18,12 +18,18 @@ public class CadsegCadseTestPart extends CadseTestPart {
 			AbstractCadseTestPlatform run2, boolean failed) {
 		boolean zipws = runJavaTestClass.toBoolean(runJavaTestClass.getTestValue('zipws', testName, 'true'));
 		
-		if (zipws) {
-			String wsDir = runJavaTestClass.wsDir;
-			String testReport = runJavaTestClass.testReport
-			AntBuilder ant = run2.ant;
-			ant.delete(file:"${testReport}/${testName}.zip")
-			ant.zip(destfile:"${testReport}/${testName}.zip", basedir:wsDir, excludes:".metadata/**")
+		try {
+			if (zipws) {
+				Thread.sleep(20);
+				String wsDir = runJavaTestClass.wsDir;
+				String testReport = runJavaTestClass.testReport
+				AntBuilder ant = run2.ant;
+				ant.delete(file:"${testReport}/${testName}.zip")
+				ant.zip(destfile:"${testReport}/${testName}.zip", basedir:wsDir, excludes:".metadata/**")
+			}
+		} catch(Throwable e) {
+			System.out.println("Cannot create a zip file");
+			e.printStackTrace();
 		}
 	}
 
