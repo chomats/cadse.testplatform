@@ -51,12 +51,12 @@ public class All_Night extends CadseTest {
 		//    Group Test3   //
 		// ================ //
 		
-		//new GroupTest3_Boolean(),
-		//new GroupTest3_Double(),
-		//new GroupTest3_Enum(),
-		new GroupTest3_Integer()
-		//new GroupTest3_Long(),
-		//new GroupTest3_String(),
+		new GroupTest3_Boolean(),
+		new GroupTest3_Double(),
+		new GroupTest3_Enum(),
+		new GroupTest3_Integer(),
+		new GroupTest3_Long(),
+		new GroupTest3_String()
 		)
 	}
 }
