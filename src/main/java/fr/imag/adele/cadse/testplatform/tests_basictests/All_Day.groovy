@@ -52,6 +52,17 @@ public class All_Day extends CadseTest {
 		//new GroupTest1_String(),
 		
 		// ================ //
+		//    Group Test2   //
+		// ================ //
+		
+		//new GroupTest1_Boolean(),
+		//new GroupTest1_Double(),
+		//new GroupTest1_Enum(),
+		//new GroupTest1_Integer(),
+		//new GroupTest1_Long(),
+		//new GroupTest1_String(),
+		
+		// ================ //
 		//    Group Test3   //
 		// ================ //
 		
