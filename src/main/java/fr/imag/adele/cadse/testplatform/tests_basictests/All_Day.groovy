@@ -27,7 +27,8 @@ public class All_Day extends CadseTest {
 		//       Misc       //
 		// ================ //
 		
-		new Bug1()
+		new Bug1(),
+		new Bug2()
 		
 		// ================ //
 		// Basic Properties //
