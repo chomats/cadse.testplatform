@@ -23,6 +23,7 @@ public class All_Night extends CadseTest {
 		// ================ //
 		
 		new Bug1(),
+		new Bug2(),
 		
 		// ================ //
 		// Basic Properties //
